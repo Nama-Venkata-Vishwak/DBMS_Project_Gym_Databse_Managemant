@@ -1,0 +1,176 @@
+
+SQL> CREATE TABLE healthcondition1
+  2  (
+  3  	custid VARCHAR2(20),
+  4  	custname VARCHAR2(255),
+  5  	disease VARCHAR2(20),
+  6  	sufferdate DATE,
+  7  	prescription VARCHAR2(255),
+  8  	extrafees INT
+  9  );
+
+Table created.
+
+SQL> INSERT INTO healthcondition1 VALUES('SGM001','Ravi','Diabetes',TO_DATE('21-4-2011','DD-MM-YYYY'),'Cardio Compulsory',750);
+
+1 row created.
+
+SQL> INSERT INTO healthcondition1 VALUES('SGM002','Sunil','Hypertension',TO_DATE('25-9-2016','DD-MM-YYYY'),'Cardio Compulsory',1000);
+
+1 row created.
+
+SQL> SELECT * FROM healthcondition1;
+
+CUSTID                                                                          
+--------------------                                                            
+CUSTNAME                                                                        
+--------------------------------------------------------------------------------
+DISEASE              SUFFERDAT                                                  
+-------------------- ---------                                                  
+PRESCRIPTION                                                                    
+--------------------------------------------------------------------------------
+ EXTRAFEES                                                                      
+----------                                                                      
+SGM001                                                                          
+Ravi                                                                            
+Diabetes             21-APR-11                                                  
+
+CUSTID                                                                          
+--------------------                                                            
+CUSTNAME                                                                        
+--------------------------------------------------------------------------------
+DISEASE              SUFFERDAT                                                  
+-------------------- ---------                                                  
+PRESCRIPTION                                                                    
+--------------------------------------------------------------------------------
+ EXTRAFEES                                                                      
+----------                                                                      
+Cardio Compulsory                                                               
+       750                                                                      
+                                                                                
+
+CUSTID                                                                          
+--------------------                                                            
+CUSTNAME                                                                        
+--------------------------------------------------------------------------------
+DISEASE              SUFFERDAT                                                  
+-------------------- ---------                                                  
+PRESCRIPTION                                                                    
+--------------------------------------------------------------------------------
+ EXTRAFEES                                                                      
+----------                                                                      
+SGM002                                                                          
+Sunil                                                                           
+Hypertension         25-SEP-16                                                  
+
+CUSTID                                                                          
+--------------------                                                            
+CUSTNAME                                                                        
+--------------------------------------------------------------------------------
+DISEASE              SUFFERDAT                                                  
+-------------------- ---------                                                  
+PRESCRIPTION                                                                    
+--------------------------------------------------------------------------------
+ EXTRAFEES                                                                      
+----------                                                                      
+Cardio Compulsory                                                               
+      1000                                                                      
+                                                                                
+
+SQL> UPDATE healthcondition1 SET extrafees=extrafees+250;
+
+2 rows updated.
+
+SQL> SELECT * FROM healthcondition1;
+
+CUSTID                                                                          
+--------------------                                                            
+CUSTNAME                                                                        
+--------------------------------------------------------------------------------
+DISEASE              SUFFERDAT                                                  
+-------------------- ---------                                                  
+PRESCRIPTION                                                                    
+--------------------------------------------------------------------------------
+ EXTRAFEES                                                                      
+----------                                                                      
+SGM001                                                                          
+Ravi                                                                            
+Diabetes             21-APR-11                                                  
+
+CUSTID                                                                          
+--------------------                                                            
+CUSTNAME                                                                        
+--------------------------------------------------------------------------------
+DISEASE              SUFFERDAT                                                  
+-------------------- ---------                                                  
+PRESCRIPTION                                                                    
+--------------------------------------------------------------------------------
+ EXTRAFEES                                                                      
+----------                                                                      
+Cardio Compulsory                                                               
+      1000                                                                      
+                                                                                
+
+CUSTID                                                                          
+--------------------                                                            
+CUSTNAME                                                                        
+--------------------------------------------------------------------------------
+DISEASE              SUFFERDAT                                                  
+-------------------- ---------                                                  
+PRESCRIPTION                                                                    
+--------------------------------------------------------------------------------
+ EXTRAFEES                                                                      
+----------                                                                      
+SGM002                                                                          
+Sunil                                                                           
+Hypertension         25-SEP-16                                                  
+
+CUSTID                                                                          
+--------------------                                                            
+CUSTNAME                                                                        
+--------------------------------------------------------------------------------
+DISEASE              SUFFERDAT                                                  
+-------------------- ---------                                                  
+PRESCRIPTION                                                                    
+--------------------------------------------------------------------------------
+ EXTRAFEES                                                                      
+----------                                                                      
+Cardio Compulsory                                                               
+      1250                                                                      
+                                                                                
+
+SQL> DELETE FROM healthcondition1 WHERE custid='SGM002';
+
+1 row deleted.
+
+SQL> SELECT * FROM healthcondition1;
+
+CUSTID                                                                          
+--------------------                                                            
+CUSTNAME                                                                        
+--------------------------------------------------------------------------------
+DISEASE              SUFFERDAT                                                  
+-------------------- ---------                                                  
+PRESCRIPTION                                                                    
+--------------------------------------------------------------------------------
+ EXTRAFEES                                                                      
+----------                                                                      
+SGM001                                                                          
+Ravi                                                                            
+Diabetes             21-APR-11                                                  
+
+CUSTID                                                                          
+--------------------                                                            
+CUSTNAME                                                                        
+--------------------------------------------------------------------------------
+DISEASE              SUFFERDAT                                                  
+-------------------- ---------                                                  
+PRESCRIPTION                                                                    
+--------------------------------------------------------------------------------
+ EXTRAFEES                                                                      
+----------                                                                      
+Cardio Compulsory                                                               
+      1000                                                                      
+                                                                                
+
+SQL> spool end;
