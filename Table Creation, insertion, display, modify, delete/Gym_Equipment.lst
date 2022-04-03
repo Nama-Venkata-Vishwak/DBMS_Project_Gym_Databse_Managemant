@@ -1,0 +1,79 @@
+SQL> CREATE TABLE gymEquipment(EquipID NUMBER,EquipName VARCHAR2(50),DOPurchase DATE,Company VARCHAR2(20),ServiceContact VARCHAR2(13),ReceiptID VARCHAR2(12),Status NUMBER);
+
+Table created.
+
+SQL> select * from gymEquipment
+  2  ;
+
+no rows selected
+
+SQL> ALTER session set NLS_DATE_FORMAT='DD/MM/YYYY';
+
+Session altered.
+
+SQL> INSERT INTO gymEquipment VALUES(1,'Cardio','07.01.2019', 'Get Fit','+919876315474','GF19071147',1);
+
+1 row created.
+
+SQL> INSERT INTO gymEquipment VALUES(1,'Thread Mill','08.01.2019', 'Sporto','+918177815474','SO19010847',1);
+
+1 row created.
+
+SQL> Update gymEquipment set EquipID=2 where company='Sporto';
+
+1 row updated.
+
+SQL> select * from gymEquipment;
+
+   EQUIPID EQUIPNAME                                          DOPURCHASE COMPANY              SERVICECONTAC RECEIPTID        STATUS  
+---------- -------------------------------------------------- ---------- -------------------- ------------- ------------ ----------                      
+         1 Cardio                                             07/01/2019 Get Fit              +919876315474 GF19071147            1                      
+                                                                                
+         2 Thread Mill                                        08/01/2019 Sporto               +918177815474 SO19010847            1                      
+                                                                                
+
+SQL> Alter table gymEquipment add primary key(EQUIPID);
+
+Table altered.
+
+SQL> INSERT INTO gymEquipment VALUES(3,'Stationary Bicycle','12.01.2019', 'AVS Gyms','+918877874481','AVS1210822',1);
+
+1 row created.
+
+SQL> UPDATE gymEquipment SET Status=0 where EquipID=2;
+
+1 row updated.
+
+SQL> INSERT INTO gymEquipment VALUES(4,'Stationary Bicycle','12.01.2019', 'AVS Gyms','+918877874481','AVS1210822',1);
+
+1 row created.
+
+SQL> Delete from gymEquipment where EquipID=4;
+
+1 row deleted.
+
+SQL> select * from gymEquipment;
+
+   EQUIPID EQUIPNAME                                          DOPURCHASE  COMPANY              SERVICECONTAC RECEIPTID        STATUS      
+---------- -------------------------------------------------- ----------  -------------------- ------------- ------------ ----------                      
+         1 Cardio                                             07/01/2019  Get Fit              +919876315474 GF19071147            1                      
+                                                                                
+         2 Thread Mill                                        08/01/2019  Sporto               +918177815474 SO19010847            0                      
+                                                                                
+         3 Stationary Bicycle                                 12/01/2019  AVS Gyms             +918877874481 AVS1210822            1
+
+
+SQL> DESC gymEquipment;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EQUIPID                                   NOT NULL NUMBER
+ EQUIPNAME                                          VARCHAR2(50)
+ DOPURCHASE                                         DATE
+ COMPANY                                            VARCHAR2(20)
+ SERVICECONTACT                                     VARCHAR2(13)
+ RECEIPTID                                          VARCHAR2(12)
+ STATUS                                             NUMBER                      
+                                                                                
+
+SQL> Spool off
+
