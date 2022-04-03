@@ -1,0 +1,164 @@
+SQL> Desc gymequipment;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EQUIPID                                   NOT NULL VARCHAR2(10)
+ EQUIPNAME                                          VARCHAR2(50)
+ COMPANY                                            VARCHAR2(20)
+ SERVICECONTACT                                     VARCHAR2(13)
+ RECEIPTID                                          VARCHAR2(12)
+ STATUS                                             NUMBER
+
+SQL> Create View GymEqView as select EQUIPID as ID, EQUIPNAME as Name, COMPANY as Company from gymequipment;
+
+View created.
+
+SQL> Desc GymEqView;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL VARCHAR2(10)
+ NAME                                               VARCHAR2(50)
+ COMPANY                                            VARCHAR2(20)
+
+
+
+SQL> select * from GymEqView;
+
+ID         NAME                                                                 
+---------- --------------------------------------------------                   
+COMPANY                                                                         
+--------------------                                                            
+EQID001    Cardio                                                               
+Get Fit                                                                         
+                                                                                
+EQID002    Thread Mill                                                          
+Sporto                                                                          
+                                                                                
+EQID003    Stationary Bicycle                                                   
+AVS Gyms                                                                        
+                                                                                
+
+ID         NAME                                                                 
+---------- --------------------------------------------------                   
+COMPANY                                                                         
+--------------------                                                            
+EQID004    Leg Press Machine                                                    
+Aero Fit                                                                        
+                                                                                
+ 
+
+SQL> INSERT INTO gymeqview VALUES('EQID005','Crossover Machine','Get Fit');
+
+1 row created.
+
+SQL> select * from GymEqView;
+
+ID         NAME                                                                 
+---------- --------------------------------------------------                   
+COMPANY                                                                         
+--------------------                                                            
+EQID005    Crossover Machine                                                    
+Get Fit                                                                         
+                                                                                
+EQID001    Cardio                                                               
+Get Fit                                                                         
+                                                                                
+EQID002    Thread Mill                                                          
+Sporto                                                                          
+                                                                                
+
+ID         NAME                                                                 
+---------- --------------------------------------------------                   
+COMPANY                                                                         
+--------------------                                                            
+EQID003    Stationary Bicycle                                                   
+AVS Gyms                                                                        
+                                                                                
+EQID004    Leg Press Machine                                                    
+Aero Fit                                                                        
+                                                                                
+
+SQL> Desc GymEqView;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL VARCHAR2(10)
+ NAME                                               VARCHAR2(50)
+ COMPANY                                            VARCHAR2(20)
+
+
+SQL> Delete GymEqView where ID = 'EQID003';
+
+1 row deleted.
+
+
+SQL> Update GYMEQVIEW SET ID='EQID003' where ID='EQID004';
+
+1 row updated.
+
+SQL> commit
+  2  ;
+
+Commit complete.
+
+SQL> savepoint nama;
+
+Savepoint created.
+
+SQL> Desc Eqtran;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ RECEIPTID                                 NOT NULL VARCHAR2(12)
+ DOPURCHASE                                NOT NULL DATE
+ COST                                               NUMBER
+ WARRENTY_TILL                                      DATE
+
+SQL> Desc Gymequipment;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EQUIPID                                   NOT NULL VARCHAR2(10)
+ EQUIPNAME                                          VARCHAR2(50)
+ COMPANY                                            VARCHAR2(20)
+ SERVICECONTACT                                     VARCHAR2(13)
+ RECEIPTID                                          VARCHAR2(12)
+ STATUS                                             NUMBER
+
+
+SQL> Create View CostView as select
+  2  A.EQUIPID as ID,A.Equipname as Name,B.Cost as Cost
+  3  from GYMEQUIPMENT A,EQTRAN B
+  4  where A.RECEIPTID=B.RECEIPTID;
+
+View created.
+
+SQL> select * from CostView;
+
+ID         NAME                                                     COST        
+---------- -------------------------------------------------- ----------        
+EQID003    Leg Press Machine                                       30000        
+EQID001    Cardio                                                  45000        
+EQID002    Thread Mill                                             30000        
+
+
+SQL> Create or Replace View CostView as select
+  2  A.EQUIPID as ID,A.Equipname as Name,A.Company,B.DOPURCHASE as PURCHASEDATE,B.Cost as Cost
+  3  from GYMEQUIPMENT A,EQTRAN B
+  4  where A.RECEIPTID=B.RECEIPTID;
+
+View created.
+
+SQL> select * from CostView;
+
+ID         NAME                                                                 
+---------- --------------------------------------------------                   
+COMPANY              PURCHASED       COST                                       
+-------------------- --------- ----------                                       
+EQID003    Leg Press Machine                                                    
+Aero Fit             01-JAN-19      30000                                       
+                                                                                
+EQID001    Cardio                                                               
+Get Fit              21-JAN-18      45000                                       
+                                                                                
+EQID002    Thread Mill                                                          
+Sporto               18-APR-18      30000                                       
+                                                                                
+
+SQL> spool off
