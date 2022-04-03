@@ -1,0 +1,141 @@
+SQL> SELECT length('SQL Tutorial') as len from dual;
+
+       LEN                                                                      
+----------                                                                      
+        12                                                                      
+
+SQL> SELECT INITCAP('oracle tutorial') FROM dual;
+
+INITCAP('ORACLE                                                                 
+---------------                                                                 
+Oracle Tutorial                                                                 
+
+SQL> SELECT concat('Mehul','Bokdia')name from dual
+  2  ;
+
+NAME                                                                            
+-----------                                                                     
+MehulBokdia                                                                     
+
+SQL> SELECT CHR(65),CHR(97) from dual;
+
+C C                                                                             
+- -                                                                             
+A a                                                                             
+
+SQL> SELECT ASCII('a') from dual;
+
+ASCII('A')                                                                      
+----------                                                                      
+        97                                                                      
+
+SQL> SELECT INSTR('Character','r',1,1) POS1, INSTR('Character','r',1,2) POS2,
+  2  INSTR('Character','a',-1,2) POS3,INSTR('character','c',1,2) POS4 from dual;
+
+      POS1       POS2       POS3       POS4                                     
+---------- ---------- ---------- ----------                                     
+         4          9          3          6                                     
+
+SQL> Select
+  2  LTRIM('datawarehousing','ing')
+  3  trim1 , LTRIM('datawarehousing ')
+  4  trim2
+  5  , LTRIM(' datawarehousing') trim3
+  6  , LTRIM('datawarehousing','data')
+  7  trim4 from dual;
+
+TRIM1           TRIM2            TRIM3           TRIM4                          
+--------------- ---------------- --------------- -----------                    
+datawarehousing datawarehousing  datawarehousing warehousing                    
+
+SQL> SELECT TRIM(' Oracle ') trim1, TRIM('Oracle ') trim2 FROM Dual;
+
+TRIM1  TRIM2                                                                    
+------ ------                                                                   
+Oracle Oracle                                                                   
+
+
+SQL> SELECT REPLACE ('Oracle', 'Ora', 'Arti') replace_exa
+  2  FROM Dual;
+
+REPLACE                                                                         
+-------                                                                         
+Article                                                                         
+
+SQL> SELECT ACOS(.28)"Arc_Cosine" FROM DUAL;
+
+Arc_Cosine                                                                      
+----------                                                                      
+1.28700222                                                                      
+
+SQL> SELECT ATAN(.28)"Arc_Cosine" FROM DUAL;
+
+Arc_Cosine                                                                      
+----------                                                                      
+.273008703                                                                      
+
+SQL> SELECT ASIN(.28)"Arc_Sin" FROM DUAL;
+
+   Arc_Sin                                                                      
+----------                                                                      
+.283794109                                                                      
+
+SQL> SELECT ABS(-28)"Absoulte" FROM DUAL;
+
+  Absoulte                                                                      
+----------                                                                      
+        28                                                                      
+
+SQL> SELECT FLOOR(15.65) "Floor" FROM DUAL;
+
+     Floor                                                                      
+----------                                                                      
+        15                                                                      
+
+SQL> SELECT POWER(3,2) "POWER" FROM DUAL;
+
+     POWER                                                                      
+----------                                                                      
+         9                                                                      
+
+SQL> SELECT ROUND(3.234) "ROUND" FROM DUAL;
+
+     ROUND                                                                      
+----------                                                                      
+         3                                                                      
+
+SQL> SELECT TRUNC(12.75,-1) "Trunc" FROM DUAL;
+
+     Trunc                                                                      
+----------                                                                      
+        10                                                                      
+
+SQL> SELECT SYSDATE, ADD_MONTHS(SYSDATE,2), ADD_MONTHS(SYSDATE,-
+> 2) FROM
+  2  DUAL;
+
+SYSDATE   ADD_MONTH ADD_MONTH                                                   
+--------- --------- ---------                                                   
+09-FEB-22 09-APR-22 09-APR-22                                                   
+
+SQL> SELECT SYSDATE, LAST_DAY(SYSDATE) END_OF_MONTH FROM DUAL;
+
+SYSDATE   END_OF_MO                                                             
+--------- ---------                                                             
+09-FEB-22 28-FEB-22                                                             
+
+SQL> SELECT NEXT_DAY('31-Aug-18','SUN') "FIRST MONDAY OF
+  2  SEPTEMBER" FROM DUAL;
+
+FIRST MON                                                                       
+---------                                                                       
+02-SEP-18                                                                       
+
+SQL> SELECT SYSDATE, TRUNC(SYSDATE,'MM'), TRUNC(SYSDATE,'YYYY')
+  2  FROM DUAL;
+
+SYSDATE   TRUNC(SYS TRUNC(SYS                                                   
+--------- --------- ---------                                                   
+09-FEB-22 01-FEB-22 01-JAN-22                                                   
+
+SQL> spool end;
