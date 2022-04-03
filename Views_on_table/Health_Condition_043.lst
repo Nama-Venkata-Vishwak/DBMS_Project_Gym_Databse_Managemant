@@ -1,0 +1,106 @@
+SQL> CREATE TABLE healthcondition6 ( custid VARCHAR2(20), custname VARCHAR2(255),disease VARCHAR2(20),sufferdate DATE,prescription VARCHAR2(255), extrafees INT );
+CREATE TABLE healthcondition6 ( custid VARCHAR2(20), custname VARCHAR2(255),disease VARCHAR2(20),sufferdate DATE,prescription VARCHAR2(255), extrafees INT )
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> CREATE TABLE healthcondition8 ( custid VARCHAR2(20), custname VARCHAR2(255),disease VARCHAR2(20),sufferdate DATE,prescription VARCHAR2(255), extrafees INT );
+
+Table created.
+
+SQL> Desc healthcondition8;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CUSTID                                             VARCHAR2(20)
+ CUSTNAME                                           VARCHAR2(255)
+ DISEASE                                            VARCHAR2(20)
+ SUFFERDATE                                         DATE
+ PRESCRIPTION                                       VARCHAR2(255)
+ EXTRAFEES                                          NUMBER(38)
+
+SQL> INSERT INTO healthcondition8 VALUES('SGM001','Guru','Appendix',TO_DATE('26-12-2021','DD-MM-YYYY'),'No Cardio',0);
+
+1 row created.
+
+SQL> INSERT INTO healthcondition8 VALUES('SGM002','BKL','HyperTension',TO_DATE('20-11-2008','DD-MM-YYYY'),'Cardio Complusory',1000);
+
+1 row created.
+
+SQL> INSERT INTO healthcondition8 VALUES('SGM003','MKC','Diabetes',TO_DATE('05-08-2016','DD-MM-YYYY'),'Cardio Complusory',1500);
+
+1 row created.
+
+SQL> CREATE VIEW HEALTHVEIW AS SELECT CUSTID,CUSTNAME,DISEASE,PRESCRIPTION;
+CREATE VIEW HEALTHVEIW AS SELECT CUSTID,CUSTNAME,DISEASE,PRESCRIPTION
+                                                                    *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> CREATE VIEW HEALTHVEIW AS SELECT CUSTID,CUSTNAME,DISEASE,PRESCRIPTION FROM healthcondition8;
+
+View created.
+
+SQL> DESC HEALTHVEIW
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CUSTID                                             VARCHAR2(20)
+ CUSTNAME                                           VARCHAR2(255)
+ DISEASE                                            VARCHAR2(20)
+ PRESCRIPTION                                       VARCHAR2(255)
+
+SQL> SELECT * FROM HEALTHVEIW;
+
+CUSTID                                                                          
+--------------------                                                            
+CUSTNAME                                                                        
+--------------------------------------------------------------------------------
+DISEASE                                                                         
+--------------------                                                            
+PRESCRIPTION                                                                    
+--------------------------------------------------------------------------------
+SGM001                                                                          
+Guru                                                                            
+Appendix                                                                        
+No Cardio                                                                       
+                                                                                
+
+CUSTID                                                                          
+--------------------                                                            
+CUSTNAME                                                                        
+--------------------------------------------------------------------------------
+DISEASE                                                                         
+--------------------                                                            
+PRESCRIPTION                                                                    
+--------------------------------------------------------------------------------
+SGM002                                                                          
+BKL                                                                             
+HyperTension                                                                    
+Cardio Complusory                                                               
+                                                                                
+
+CUSTID                                                                          
+--------------------                                                            
+CUSTNAME                                                                        
+--------------------------------------------------------------------------------
+DISEASE                                                                         
+--------------------                                                            
+PRESCRIPTION                                                                    
+--------------------------------------------------------------------------------
+SGM003                                                                          
+MKC                                                                             
+Diabetes                                                                        
+Cardio Complusory                                                               
+                                                                                
+
+SQL> INSERT INTO HEALTHVEIW VALUES('SMG004','Sekhar','Back Pain','Dedicated Back Warm Up');
+INSERT INTO HEALTHVEIW VALUES('SMG004','Sekhar','Back Pain','Dedicated Back Warm Up')
+*
+ERROR at line 1:
+ORA-03135: connection lost contact 
+Process ID: 11116 
+Session ID: 47 Serial number: 60770 
+
+
+SQL> spool end
