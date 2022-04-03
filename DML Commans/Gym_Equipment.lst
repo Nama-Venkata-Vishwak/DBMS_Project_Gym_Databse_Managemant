@@ -1,0 +1,167 @@
+SQL> desc gymequipment;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EQUIPID                                   NOT NULL NUMBER
+ EQUIPNAME                                          VARCHAR2(50)
+ DOPURCHASE                                         DATE
+ COMPANY                                            VARCHAR2(20)
+ SERVICECONTACT                                     VARCHAR2(13)
+ RECEIPTID                                          VARCHAR2(12)
+ STATUS                                             NUMBER
+
+SQL> ALTER TABLE GYMEQUIPMENT DROP PRIMARY KEY;
+
+Table altered.
+
+SQL> desc gymequipment;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EQUIPID                                            NUMBER
+ EQUIPNAME                                          VARCHAR2(50)
+ DOPURCHASE                                         DATE
+ COMPANY                                            VARCHAR2(20)
+ SERVICECONTACT                                     VARCHAR2(13)
+ RECEIPTID                                          VARCHAR2(12)
+ STATUS                                             NUMBER
+
+SQL> update gymequipment set equipid=NULL;
+
+3 rows updated.
+
+SQL> Alter table gymequipment modify Equipid Varchar2(10);
+
+Table altered.
+
+SQL> select * from gymequipment;
+
+EQUIPID    EQUIPNAME                                          DOPURCHAS         
+---------- -------------------------------------------------- ---------         
+COMPANY              SERVICECONTAC RECEIPTID        STATUS                      
+-------------------- ------------- ------------ ----------                      
+           Cardio                                             07-JAN-19         
+Get Fit              +919876315474 GF19071147            1                      
+                                                                                
+           Thread Mill                                        08-JAN-19         
+Sporto               +918177815474 SO19010847            1                      
+                                                                                
+           Stationary Bicycle                                 12-JAN-19         
+AVS Gyms             +918877874481 AVS1210822            1                      
+                                                                                
+
+SQL> update gymequipment set equipid='EQID001' where company='Get Fit';
+
+1 row updated.
+
+SQL> update gymequipment set equipid='EQID002' where company='Sporto';
+
+1 row updated.
+
+SQL> update gymequipment set equipid='EQID003' where company='AVS Gyms';
+
+1 row updated.
+
+SQL> Alter table gymequipment modify Equipid Varchar2(10) Primary Key;
+
+Table altered.
+
+SQL> desc gymequipment;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EQUIPID                                   NOT NULL VARCHAR2(10)
+ EQUIPNAME                                          VARCHAR2(50)
+ DOPURCHASE                                         DATE
+ COMPANY                                            VARCHAR2(20)
+ SERVICECONTACT                                     VARCHAR2(13)
+ RECEIPTID                                          VARCHAR2(12)
+ STATUS                                             NUMBER
+
+SQL> select * from gymequipment;
+
+EQUIPID    EQUIPNAME                                          DOPURCHAS         
+---------- -------------------------------------------------- ---------         
+COMPANY              SERVICECONTAC RECEIPTID        STATUS                      
+-------------------- ------------- ------------ ----------                      
+EQID001    Cardio                                             07-JAN-19         
+Get Fit              +919876315474 GF19071147            1                      
+                                                                                
+EQID002    Thread Mill                                        08-JAN-19         
+Sporto               +918177815474 SO19010847            1                      
+                                                                                
+EQID003    Stationary Bicycle                                 12-JAN-19         
+AVS Gyms             +918877874481 AVS1210822            1  
+
+SQL> Insert into gymequipment values('EQID004','Leg Press Machine','07-FEB-19','Aero Fit','+918798647284','AEF19020724',1);
+
+1 row created.
+
+SQL> select * from gymequipment;
+
+EQUIPID    EQUIPNAME                                          DOPURCHAS         
+---------- -------------------------------------------------- ---------         
+COMPANY              SERVICECONTAC RECEIPTID        STATUS                      
+-------------------- ------------- ------------ ----------                      
+EQID001    Cardio                                             07-JAN-19         
+Get Fit              +919876315474 GF19071147            1                      
+                                                                                
+EQID002    Thread Mill                                        08-JAN-19         
+Sporto               +918177815474 SO19010847            1                      
+                                                                                
+EQID003    Stationary Bicycle                                 12-JAN-19         
+AVS Gyms             +918877874481 AVS1210822            1                      
+                                                                                
+
+EQUIPID    EQUIPNAME                                          DOPURCHAS         
+---------- -------------------------------------------------- ---------         
+COMPANY              SERVICECONTAC RECEIPTID        STATUS                      
+-------------------- ------------- ------------ ----------                      
+EQID004    Leg Press Machine                                  07-FEB-19         
+Aero Fit             +918798647284 AEF19020724           1 
+
+SQL> Delete from gymequipment where EQUIPID='EQID004';
+
+1 row deleted.
+
+SQL> select * from gymequipment;
+
+EQUIPID    EQUIPNAME                                          DOPURCHAS         
+---------- -------------------------------------------------- ---------         
+COMPANY              SERVICECONTAC RECEIPTID        STATUS                      
+-------------------- ------------- ------------ ----------                      
+EQID001    Cardio                                             07-JAN-19         
+Get Fit              +919876315474 GF19071147            1                      
+                                                                                
+EQID002    Thread Mill                                        08-JAN-19         
+Sporto               +918177815474 SO19010847            1                      
+                                                                                
+EQID003    Stationary Bicycle                                 12-JAN-19         
+AVS Gyms             +918877874481 AVS1210822            1 
+
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from gymequipment;
+
+EQUIPID    EQUIPNAME                                          DOPURCHAS
+---------- -------------------------------------------------- ---------
+COMPANY              SERVICECONTAC RECEIPTID        STATUS
+-------------------- ------------- ------------ ----------
+EQID001    Cardio                                             07-JAN-19
+Get Fit              +919876315474 GF19071147            1
+
+EQID002    Thread Mill                                        08-JAN-19
+Sporto               +918177815474 SO19010847            1
+
+EQID003    Stationary Bicycle                                 12-JAN-19
+AVS Gyms             +918877874481 AVS1210822            1
+
+
+EQUIPID    EQUIPNAME                                          DOPURCHAS
+---------- -------------------------------------------------- ---------
+COMPANY              SERVICECONTAC RECEIPTID        STATUS
+-------------------- ------------- ------------ ----------
+EQID004    Leg Press Machine                                  07-FEB-19
+Aero Fit             +918798647284 AEF19020724           1                    
+                                                                                
+
