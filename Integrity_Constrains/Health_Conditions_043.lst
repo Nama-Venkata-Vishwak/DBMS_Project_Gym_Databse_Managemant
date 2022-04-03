@@ -1,0 +1,323 @@
+SQL> CREATE TABLE healthcondition6 ( custid VARCHAR2(20), custname VARCHAR2(255), custlname VARCHAR2(255),disease VARCHAR2(20),sufferdate DATE,prescription VARCHAR2(255), extrafees INT );
+
+Table created.
+
+SQL> ALTER TABLE healthcondition6 MODIFY(custname varchar2(255) NOT NULL, disease char(255) NOT NULL);
+
+Table altered.
+
+SQL> ALTER TABLE healthcondition6 ADD CONSTRAINT healthcondition6_ck CHECK(extrafees BETWEEN 0 AND 3000);
+
+Table altered.
+
+SQL> CREATE TABLE customer (custname varchar2(255),age integer);
+
+Table created.
+
+SQL> ALTER TABLE healthcondition6 ADD CONSTRAINT healthcondition6_fk FOREIGN KEY(custname) REFERENCES customer(custname);
+ALTER TABLE healthcondition6 ADD CONSTRAINT healthcondition6_fk FOREIGN KEY(custname) REFERENCES customer(custname)
+                                                                                                          *
+ERROR at line 1:
+ORA-02270: no matching unique or primary key for this column-list
+
+
+SQL> ALTER TABLE healthcondition6 ADD CONSTRAINT healthcondition6_fk FOREIGN KEY(custname) REFERENCES customer(custname);
+ALTER TABLE healthcondition6 ADD CONSTRAINT healthcondition6_fk FOREIGN KEY(custname) REFERENCES customer(custname)
+                                                                                                          *
+ERROR at line 1:
+ORA-02270: no matching unique or primary key for this column-list
+
+
+SQL> CREATE TABLE customer1 (custid varchar2(255),custname varchar2(255),age integer);
+
+Table created.
+
+SQL> ALTER TABLE customer1 ADD CONSTRAINT customer1_pk PRIMARY KEY(custid);
+
+Table altered.
+
+SQL> ALTER TABLE healthcondition6 ADD CONSTRAINT healthcondition6_fk FOREIGN KEY(custid) REFERENCES customer(custid);
+ALTER TABLE healthcondition6 ADD CONSTRAINT healthcondition6_fk FOREIGN KEY(custid) REFERENCES customer(custid)
+                                                                                                        *
+ERROR at line 1:
+ORA-00904: "CUSTID": invalid identifier
+
+
+SQL> ALTER TABLE healthcondition6 ADD CONSTRAINT healthcondition6_fk FOREIGN KEY(custid) REFERENCES customer1(custid);
+
+Table altered.
+
+SQL> ALTER TABLE healthcondition6 DROP CONSTRAINT healthcondition6_fk;
+
+Table altered.
+
+SQL> ALTER TABLE healthcondition6 DISABLE CONSTRAINT healthcondition6_pk CASCADE;
+ALTER TABLE healthcondition6 DISABLE CONSTRAINT healthcondition6_pk CASCADE
+*
+ERROR at line 1:
+ORA-02431: cannot disable constraint (HEALTHCONDITION6_PK) - no such constraint
+
+
+SQL> ALTER TABLE customer1 DISABLE CONSTRAINT customer1_pk CASCADE;
+
+Table altered.
+
+SQL> SELECT healthcondition6_ck FROM user_constraints WHERE table_name = 'healthcondition6';
+SELECT healthcondition6_ck FROM user_constraints WHERE table_name = 'healthcondition6'
+       *
+ERROR at line 1:
+ORA-00904: "HEALTHCONDITION6_CK": invalid identifier
+
+
+SQL> SELECT * FROM user_constraints WHERE table_name = 'healthcondition6';
+
+no rows selected
+
+SQL> SELECT CHECK FROM user_constraints WHERE table_name = 'healthcondition6';
+SELECT CHECK FROM user_constraints WHERE table_name = 'healthcondition6'
+       *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> SELECT constraint_name, constraint_type, search_condition FROM user_constraints WHERE table_name = 'healthcondition6';
+
+no rows selected
+
+SQL> SELECT constraint_name, constraint_type, search_condition FROM user_constraints WHERE table_name = 'healthcondition6' and constraint_type='C';
+
+no rows selected
+
+SQL> ALTER TABLE healthcondition6 ADD CONSTRAINT healthcondition6_pk PRIMARY KEY(custid);
+
+Table altered.
+
+SQL> SELECT constraint_name, constraint_type, search_condition FROM user_constraints WHERE table_name = 'healthcondition6' and constraint_type='C';
+
+no rows selected
+
+SQL> SELECT constraint_name, constraint_type, search_condition FROM user_constraints WHERE table_name = 'healthcondition6';
+
+no rows selected
+
+SQL> SELECT constraint_name, constraint_type, search_condition FROM User_constraints WHERE table_name = 'healthcondition6';
+
+no rows selected
+
+SQL> SELECT * FROM healthcondition
+  2  ;
+
+no rows selected
+
+SQL> SELECT * FROM healthcondition6;
+
+no rows selected
+
+SQL> INSERT INTO healthcondition6 VALUES('SGM001','Guru','Sahu','Appendix',TO_DATE('26-12-2021','DD-MM-YYYY'),'No Cardio',1000);
+
+1 row created.
+
+SQL> SELECT constraint_name, constraint_type, search_condition FROM user_constraints WHERE table_name = 'healthcondition6';
+
+no rows selected
+
+SQL> SELECT * FROM healthcondition
+  2  ;
+
+no rows selected
+
+SQL> SELECT * FROM healthcondition6;
+
+CUSTID
+--------------------
+CUSTNAME
+--------------------------------------------------------------------------------
+CUSTLNAME
+--------------------------------------------------------------------------------
+DISEASE
+--------------------------------------------------------------------------------
+SUFFERDAT
+---------
+PRESCRIPTION
+--------------------------------------------------------------------------------
+ EXTRAFEES
+----------
+SGM001
+
+CUSTID
+--------------------
+CUSTNAME
+--------------------------------------------------------------------------------
+CUSTLNAME
+--------------------------------------------------------------------------------
+DISEASE
+--------------------------------------------------------------------------------
+SUFFERDAT
+---------
+PRESCRIPTION
+--------------------------------------------------------------------------------
+ EXTRAFEES
+----------
+Guru
+
+CUSTID
+--------------------
+CUSTNAME
+--------------------------------------------------------------------------------
+CUSTLNAME
+--------------------------------------------------------------------------------
+DISEASE
+--------------------------------------------------------------------------------
+SUFFERDAT
+---------
+PRESCRIPTION
+--------------------------------------------------------------------------------
+ EXTRAFEES
+----------
+Sahu
+
+CUSTID
+--------------------
+CUSTNAME
+--------------------------------------------------------------------------------
+CUSTLNAME
+--------------------------------------------------------------------------------
+DISEASE
+--------------------------------------------------------------------------------
+SUFFERDAT
+---------
+PRESCRIPTION
+--------------------------------------------------------------------------------
+ EXTRAFEES
+----------
+Appendix
+
+CUSTID
+--------------------
+CUSTNAME
+--------------------------------------------------------------------------------
+CUSTLNAME
+--------------------------------------------------------------------------------
+DISEASE
+--------------------------------------------------------------------------------
+SUFFERDAT
+---------
+PRESCRIPTION
+--------------------------------------------------------------------------------
+ EXTRAFEES
+----------
+
+
+CUSTID
+--------------------
+CUSTNAME
+--------------------------------------------------------------------------------
+CUSTLNAME
+--------------------------------------------------------------------------------
+DISEASE
+--------------------------------------------------------------------------------
+SUFFERDAT
+---------
+PRESCRIPTION
+--------------------------------------------------------------------------------
+ EXTRAFEES
+----------
+
+
+CUSTID
+--------------------
+CUSTNAME
+--------------------------------------------------------------------------------
+CUSTLNAME
+--------------------------------------------------------------------------------
+DISEASE
+--------------------------------------------------------------------------------
+SUFFERDAT
+---------
+PRESCRIPTION
+--------------------------------------------------------------------------------
+ EXTRAFEES
+----------
+
+
+CUSTID
+--------------------
+CUSTNAME
+--------------------------------------------------------------------------------
+CUSTLNAME
+--------------------------------------------------------------------------------
+DISEASE
+--------------------------------------------------------------------------------
+SUFFERDAT
+---------
+PRESCRIPTION
+--------------------------------------------------------------------------------
+ EXTRAFEES
+----------
+26-DEC-21
+
+CUSTID
+--------------------
+CUSTNAME
+--------------------------------------------------------------------------------
+CUSTLNAME
+--------------------------------------------------------------------------------
+DISEASE
+--------------------------------------------------------------------------------
+SUFFERDAT
+---------
+PRESCRIPTION
+--------------------------------------------------------------------------------
+ EXTRAFEES
+----------
+No Cardio
+
+CUSTID
+--------------------
+CUSTNAME
+--------------------------------------------------------------------------------
+CUSTLNAME
+--------------------------------------------------------------------------------
+DISEASE
+--------------------------------------------------------------------------------
+SUFFERDAT
+---------
+PRESCRIPTION
+--------------------------------------------------------------------------------
+ EXTRAFEES
+----------
+      1000
+
+CUSTID
+--------------------
+CUSTNAME
+--------------------------------------------------------------------------------
+CUSTLNAME
+--------------------------------------------------------------------------------
+DISEASE
+--------------------------------------------------------------------------------
+SUFFERDAT
+---------
+PRESCRIPTION
+--------------------------------------------------------------------------------
+ EXTRAFEES
+----------
+
+
+SQL> SELECT constraint_name, constraint_type, search_condition FROM user_constraints WHERE table_name = 'healthcondition6';
+
+no rows selected
+
+SQL> SELECT constraint_name, constraint_type, search_condition FROM user_constraints WHERE table_name = 'healthcondition6'and type = 'C';
+SELECT constraint_name, constraint_type, search_condition FROM user_constraints WHERE table_name = 'healthcondition6'and type = 'C'
+                                                                                                                         *
+ERROR at line 1:
+ORA-00904: "TYPE": invalid identifier
+
+
+SQL> SELECT Constraint_name, Search_condition FROM User_constraints WHERE table_name = 'healthcondition6';
+
+no rows selected
+
+SQL> spool end;
+SQL> edit exp5.lst
