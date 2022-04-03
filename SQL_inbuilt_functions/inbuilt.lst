@@ -1,0 +1,285 @@
+SQL> select * from gymequipment;
+
+EQUIPID    EQUIPNAME                                          DOPURCHAS         
+---------- -------------------------------------------------- ---------         
+COMPANY              SERVICECONTAC RECEIPTID        STATUS                      
+-------------------- ------------- ------------ ----------                      
+EQID001    Cardio                                             07-JAN-19         
+Get Fit              +919876315474 GF19071147            1                      
+                                                                                
+EQID002    Thread Mill                                        08-JAN-19         
+Sporto               +918177815474 SO19010847            1                      
+                                                                                
+EQID003    Stationary Bicycle                                 12-JAN-19         
+AVS Gyms             +918877874481 AVS1210822            1                      
+                                                                                
+
+EQUIPID    EQUIPNAME                                          DOPURCHAS         
+---------- -------------------------------------------------- ---------         
+COMPANY              SERVICECONTAC RECEIPTID        STATUS                      
+-------------------- ------------- ------------ ----------                      
+EQID004    Leg Press Machine                                  07-FEB-19         
+Aero Fit             +918798647284 AEF19020724           1                      
+                                                                                
+
+SQL> select ascii(status) from gymequipment;
+
+ASCII(STATUS)                                                                   
+-------------                                                                   
+           49                                                                   
+           49                                                                   
+           49                                                                   
+           49                                                                   
+
+SQL> select chr(status) from gymequipment;
+
+CHR(                                                                            
+----                                                                            
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+
+
+SQL> select chr('35') from dual;
+
+C                                                                               
+-                                                                               
+#                                                                               
+
+SQL> select ascii('A') from dual;
+
+ASCII('A')                                                                      
+----------                                                                      
+        65                                                                      
+
+SQL> select chr(35) from dual;
+
+C                                                                               
+-                                                                               
+#                                                                               
+
+SQL> select concat(concat(Equipname,' from '),company) from gymequipment;
+
+CONCAT(CONCAT(EQUIPNAME,'FROM'),COMPANY)                                        
+----------------------------------------------------------------------------    
+Cardio from Get Fit                                                             
+Thread Mill from Sporto                                                         
+Stationary Bicycle from AVS Gyms                                                
+Leg Press Machine from Aero Fit                                                 
+
+SQL> select initcap(concat(concat(Equipname,' from '),company)) from gymequipment;
+
+INITCAP(CONCAT(CONCAT(EQUIPNAME,'FROM'),COMPANY))                               
+----------------------------------------------------------------------------    
+Cardio From Get Fit                                                             
+Thread Mill From Sporto                                                         
+Stationary Bicycle From Avs Gyms                                                
+Leg Press Machine From Aero Fit                                                 
+
+SQL> select instr(equipname,'Bicycle') from gymequipment;
+
+INSTR(EQUIPNAME,'BICYCLE')                                                      
+--------------------------                                                      
+                         0                                                      
+                         0                                                      
+                        12                                                      
+                         0                                                      
+
+SQL> select instr(DOpurchase,'FEB') from gymequipment;
+
+INSTR(DOPURCHASE,'FEB')                                                         
+-----------------------                                                         
+                      0                                                         
+                      0                                                         
+                      0                                                         
+                      4                                                         
+
+SQL> select instr(DOpurchase,'jan') from gymequipment;
+
+INSTR(DOPURCHASE,'JAN')                                                         
+-----------------------                                                         
+                      0                                                         
+                      0                                                         
+                      0                                                         
+                      0                                                         
+
+SQL> select instr(DOpurchase,'JAN') from gymequipment;
+
+INSTR(DOPURCHASE,'JAN')                                                         
+-----------------------                                                         
+                      4                                                         
+                      4                                                         
+                      4                                                         
+                      0                                                         
+
+SQL> select length(equipname) from gymequipment;
+
+LENGTH(EQUIPNAME)                                                               
+-----------------                                                               
+                6                                                               
+               11                                                               
+               18                                                               
+               17                                                               
+
+SQL> select lower(equipname) from gymequipment;
+
+LOWER(EQUIPNAME)                                                                
+--------------------------------------------------                              
+cardio                                                                          
+thread mill                                                                     
+stationary bicycle                                                              
+leg press machine                                                               
+
+SQL> select upper(equipname) from gymequipment;
+
+UPPER(EQUIPNAME)                                                                
+--------------------------------------------------                              
+CARDIO                                                                          
+THREAD MILL                                                                     
+STATIONARY BICYCLE                                                              
+LEG PRESS MACHINE                                                               
+
+SQL> select lpad(equipname,18,'.') from gymequipment;
+
+LPAD(EQUIPNAME,18,'.')                                                          
+------------------------------------------------------------------------        
+............Cardio                                                              
+.......Thread Mill                                                              
+Stationary Bicycle                                                              
+.Leg Press Machine                                                              
+
+SQL> select rpad(equipname,17,'.') from gymequipment;
+
+RPAD(EQUIPNAME,17,'.')                                                          
+--------------------------------------------------------------------            
+Cardio...........                                                               
+Thread Mill......                                                               
+Stationary Bicycl                                                               
+Leg Press Machine                                                               
+
+SQL> select ltrim(equipid,'EQ') from gymequipment;
+
+LTRIM(EQUI                                                                      
+----------                                                                      
+ID001                                                                           
+ID002                                                                           
+ID003                                                                           
+ID004                                                                           
+
+SQL> select rtrim(DOPurchase,'-19') from gymequipment;
+
+RTRIM(DOPURCHASE,'                                                              
+------------------                                                              
+07-JAN                                                                          
+08-JAN                                                                          
+12-JAN                                                                          
+07-FEB                                                                          
+
+SQL> select trim('  Nama    ') from dual;
+
+TRIM                                                                            
+----                                                                            
+Nama                                                                            
+
+SQL> select ltrim('  Nama    ') from dual;
+
+LTRIM('N                                                                        
+--------                                                                        
+Nama                                                                            
+
+SQL> select rtrim('  Nama    ') from dual;
+
+RTRIM(                                                                          
+------                                                                          
+  Nama                                                                          
+
+SQL> select replace(equipid,'EQ','NV') from gymequipment;
+
+REPLACE(EQUIPID,'EQ'                                                            
+--------------------                                                            
+NVID001                                                                         
+NVID002                                                                         
+NVID003                                                                         
+NVID004 
+
+SQL> select abs(-124),ACOS(.3),ASIN(.6),ATAN(0) from dual;
+
+ ABS(-124)   ACOS(.3)   ASIN(.6)    ATAN(0)                                     
+---------- ---------- ---------- ----------                                     
+       124 1.26610367 .643501109          0                                     
+
+SQL> select ceil(12.34),floor(13.987) from DUAL;
+
+CEIL(12.34) FLOOR(13.987)                                                       
+----------- -------------                                                       
+         13            13                                                       
+
+SQL> select MOD(100,3)"Mod", Power(2,10)"Power" from DUAL;
+
+       Mod      Power                                                           
+---------- ----------                                                           
+         1       1024                                                      
+
+SQL> select Round(123.215,2)"ROUND", Trunc(89140.26,-2)"Truncate" from DUAL;
+
+     ROUND   Truncate                                                           
+---------- ----------                                                           
+    123.22      89100                                                           
+                                                
+
+SQL> select sysdate,ADD_MONTHS(SYSDATE,2),ADD_MONTHS(SYSDATE,-1200) from dual;
+
+SYSDATE   ADD_MONTH ADD_MONTH                                                   
+--------- --------- ---------                                                   
+15-FEB-22 15-APR-22 15-FEB-22                                                   
+
+SQL> SELECT SYSDATE, EXTRACT(YEAR FROM SYSDATE)YEAR,
+  2  EXTRACT(DAY FROM SYSDATE)DAY , EXTRACT(TIMEZONE_HOUR
+  3  FROM SYSTIMESTAMP) TZH
+  4  FROM DUAL;
+
+SYSDATE         YEAR        DAY        TZH                                      
+--------- ---------- ---------- ----------                                      
+15-FEB-22       2022         15          0                                      
+
+SQL> SELECT SYSDATE, LAST_DAY(SYSDATE) END_OF_MONTH FROM DUAL;
+
+SYSDATE   END_OF_MO                                                             
+--------- ---------                                                             
+15-FEB-22 28-FEB-22                                                             
+ 
+SQL> SELECT NEXT_DAY('25-DEC-01','SAT') "FIRST MONDAY OF SEPTEMBER" From Dual;
+
+FIRST MON                                                                       
+---------                                                                       
+29-DEC-01                                                                       
+
+SQL> SELECT NEXT_DAY('25-DEC-01','SAT') "FIRST SATURDAY" From Dual;
+
+FIRST SAT                                                                       
+---------                                                                       
+29-DEC-01                                                                       
+
+ 
+SQL> SELECT SYSDATE, ROUND(SYSDATE,'MM'), ROUND(SYSDATE,'YYYY') FROM DUAL;
+
+SYSDATE   ROUND(SYS ROUND(SYS                                                   
+--------- --------- ---------                                                   
+15-FEB-22 01-FEB-22 01-JAN-22                                                   
+
+SQL> SELECT SYSDATE, TRUNC(SYSDATE,'MM'), TRUNC(SYSDATE,'YYYY') from dual;
+
+SYSDATE   TRUNC(SYS TRUNC(SYS                                                   
+--------- --------- ---------                                                   
+15-FEB-22 01-FEB-22 01-JAN-22                                                   
+
+SQL> select MONTHS_BETWEEN('29-DEC-01', SYSDATE ) from dual;
+
+MONTHS_BETWEEN('29-DEC-01',SYSDATE)                                             
+-----------------------------------                                             
+                         -241.55507                                             
+
+SQL> spool off
+                                                                        
+
