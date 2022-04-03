@@ -1,0 +1,125 @@
+SQL> desc gymequipment;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EQUIPID                                   NOT NULL VARCHAR2(10)
+ EQUIPNAME                                          VARCHAR2(50)
+ DOPURCHASE                                         DATE
+ COMPANY                                            VARCHAR2(20)
+ SERVICECONTACT                                     VARCHAR2(13)
+ RECEIPTID                                          VARCHAR2(12)
+ STATUS                                             NUMBER
+
+
+SQL> Create Table eqTran(ReceiptID VARCHAR2(12) PRIMARY KEY,DOPurchase DATE NOT NULL,Cost NUMBER,Warrenty_Till DATE);
+
+Table created.
+
+SQL> desc eqtran;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ RECEIPTID                                 NOT NULL VARCHAR2(12)
+ DOPURCHASE                                NOT NULL DATE
+ COST                                               NUMBER
+ WARRENTY_TILL                                      DATE
+
+SQL> Alter Table Gymequipment drop column DOPURCHASE;
+
+Table altered.
+
+SQL> desc gymequipment;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EQUIPID                                   NOT NULL VARCHAR2(10)
+ EQUIPNAME                                          VARCHAR2(50)
+ COMPANY                                            VARCHAR2(20)
+ SERVICECONTACT                                     VARCHAR2(13)
+ RECEIPTID                                          VARCHAR2(12)
+ STATUS                                             NUMBER
+
+SQL> Insert into eqtran values('GF19071147','21/01/2018',45000,'21-01-2028');
+
+1 row created.
+
+SQL> Insert into eqtran values('SO19010847','18/04/2018',30000,'18-04-2028');
+
+1 row created.
+
+SQL> Insert into eqtran values('AVS1210822','29/03/2019',30000,'29-03-2024');
+
+1 row created.
+
+SQL> Insert into eqtran values('AEF19020724','01/01/2019',30000,'01-01-2026');
+
+1 row created.
+
+SQL> Alter Table Gymequipment ADD CONSTRAINT eq_ck CHECK(STATUS=0 or STATUS=1);
+
+Table altered.
+
+SQL> select * from GYMEQUIPMENT;
+
+EQUIPID    EQUIPNAME                                                            
+---------- --------------------------------------------------                   
+COMPANY              SERVICECONTAC RECEIPTID        STATUS                      
+-------------------- ------------- ------------ ----------                      
+EQID001    Cardio                                                               
+Get Fit              +919876315474 GF19071147            1                      
+                                                                                
+EQID002    Thread Mill                                                          
+Sporto               +918177815474 SO19010847            1                      
+                                                                                
+EQID003    Stationary Bicycle                                                   
+AVS Gyms             +918877874481 AVS1210822            1                      
+                                                                                
+
+EQUIPID    EQUIPNAME                                                            
+---------- --------------------------------------------------                   
+COMPANY              SERVICECONTAC RECEIPTID        STATUS                      
+-------------------- ------------- ------------ ----------                      
+EQID004    Leg Press Machine                                                    
+Aero Fit             +918798647284 AEF19020724           1                      
+                                                                                
+
+SQL> update GYMequipment set STATUS=2 where EQUIPID='EQID001';
+update GYMequipment set STATUS=2 where EQUIPID='EQID001'
+*
+ERROR at line 1:
+ORA-02290: check constraint (RA1911032010029.EQ_CK) violated 
+
+
+SQL> Alter Table Gymequipment DISABLE CONSTRAINT eq_ck CASCADE;
+
+Table altered.
+
+SQL> update GYMequipment set STATUS=2 where EQUIPID='EQID001';
+
+1 row updated.
+
+SQL> update GYMequipment set STATUS=1 where EQUIPID='EQID001';
+
+1 row updated.
+
+
+SQL> Alter Table Gymequipment ENABLE CONSTRAINT eq_ck ;
+
+Table altered.
+
+SQL> update GYMequipment set STATUS=2 where EQUIPID='EQID001';
+update GYMequipment set STATUS=2 where EQUIPID='EQID001'
+*
+ERROR at line 1:
+ORA-02290: check constraint (RA1911032010029.EQ_CK) violated 
+
+SQL> ALTER TABLE gymequipment ADD CONSTRAINT eq_pk
+  2  FOREIGN KEY(RECEIPTID) REFERENCES eqtran(RECEIPTID) on delete cascade;
+
+Table altered.
+
+SQL> ALTER TABLE GYMEQUIPMENT DROP Constraint eq_pk cascade;
+
+Table altered.
+
+SQL> ALTER TABLE gymequipment ADD CONSTRAINT FOREIGN
+  2  FOREIGN KEY(RECEIPTID) REFERENCES eqtran(RECEIPTID);
+
+Table altered.
