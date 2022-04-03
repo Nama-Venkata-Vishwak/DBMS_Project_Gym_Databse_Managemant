@@ -1,0 +1,304 @@
+SQL> CREATE TABLE gymEquipment(EquipID VARCHAR2(20) Primary Key,EquipName VARCHAR2(50),Company VARCHAR2(20),ServiceContact VARCHAR2(13),ReceiptID VARCHAR2(12),Status NUMBER, Foreign key(ReceiptID) references eqtran(ReceiptID));
+
+Table created.
+
+SQL> ALTER session set NLS_DATE_FORMAT='DD/MM/YYYY';
+
+Session altered.
+
+SQL> Insert into eqtran values('GF19071147','21/01/2018',45000,'21-01-2028');
+
+1 row created.
+
+SQL> Insert into eqtran values('SO19010847','18/04/2018',30000,'18-04-2028');
+
+1 row created.
+
+SQL> Insert into eqtran values('AVS1210822','29/03/2019',30000,'29-03-2024');
+
+1 row created.
+
+SQL> Insert into eqtran values('AEF19020724','01/01/2019',30000,'01-01-2026');
+
+1 row created.
+
+SQL> INSERT INTO gymEquipment VALUES(1,'Cardio', 'Get Fit','+919876315474','GF19071147',1);
+
+1 row created.
+
+SQL> INSERT INTO gymEquipment VALUES(2,'Cardio', 'Get Fit','+919876315474','GF19071147',1);
+
+1 row created.
+
+SQL> Delete from gymequipment where EquipId=2;
+
+1 row deleted.
+
+SQL> Delete from gymequipment where EquipId=1;
+
+1 row deleted.
+
+SQL> INSERT INTO gymEquipment VALUES('EQID001','Thread Mill', 'Sporto','+918177815474','SO19010847',1);
+
+1 row created.
+
+SQL> INSERT INTO gymEquipment VALUES('EQID002','Cardio', 'Get Fit','+919876315474','GF19071147',1);
+
+1 row created.
+
+SQL> INSERT INTO gymEquipment VALUES('EQID003','Stationary Bicycle', 'AVS Gyms','+918877874481','AVS1210822',1);
+
+1 row created.
+
+SQL> select * from gymequipment;
+
+EQUIPID              EQUIPNAME
+-------------------- --------------------------------------------------
+COMPANY              SERVICECONTAC RECEIPTID        STATUS
+-------------------- ------------- ------------ ----------
+EQID001              Thread Mill
+Sporto               +918177815474 SO19010847            1
+
+EQID002              Cardio
+Get Fit              +919876315474 GF19071147            1
+
+EQID003              Stationary Bicycle
+AVS Gyms             +918877874481 AVS1210822            1
+
+
+SQL> select * from eqtran;
+
+RECEIPTID    DOPURCHASE       COST WARRENTY_T
+------------ ---------- ---------- ----------
+GF19071147   21/01/2018      45000 21/01/2028
+SO19010847   18/04/2018      30000 18/04/2028
+AVS1210822   29/03/2019      30000 29/03/2024
+AEF19020724  01/01/2019      30000 01/01/2026
+
+
+SQL> Delete from eqtran where ReceiptId='AEF19020724';
+
+1 row deleted.
+
+SQL> Select Eq.EquipID,Tr.Cost from gymequipment Eq,Eqtran tr where eq.ReceiptId=tr.ReceiptId;
+
+EQUIPID                    COST
+-------------------- ----------
+EQID001                   30000
+EQID002                   45000
+EQID003                   30000
+
+SQL> (Select ReceiptId from Eqtran)UNION(Select ReceiptId from GymEQUIPMENT);
+
+RECEIPTID
+------------
+AVS1210822
+GF19071147
+SO19010847
+
+SQL> (Select ReceiptId from Eqtran)UNION all(Select ReceiptId from GymEQUIPMENT);
+
+RECEIPTID
+------------
+AVS1210822
+GF19071147
+SO19010847
+SO19010847
+GF19071147
+AVS1210822
+
+6 rows selected.
+
+SQL> Insert into eqtran values('WQ19074756','02/10/2018',45500,'02-10-2028');
+
+1 row created.
+
+SQL> (Select ReceiptId from Eqtran)MINUS(Select ReceiptId from GymEQUIPMENT);
+
+RECEIPTID
+------------
+WQ19074756
+
+SQL> (Select ReceiptId from Eqtran)INTERSECT(Select ReceiptId from GymEQUIPMENT);
+
+RECEIPTID
+------------
+AVS1210822
+GF19071147
+SO19010847
+
+
+SQL> Select * from gymequipment Eq,Eqtran tr where eq.ReceiptId=tr.ReceiptId;
+
+EQUIPID              EQUIPNAME
+-------------------- --------------------------------------------------
+COMPANY              SERVICECONTAC RECEIPTID        STATUS RECEIPTID
+-------------------- ------------- ------------ ---------- ------------
+DOPURCHASE       COST WARRENTY_T
+---------- ---------- ----------
+EQID001              Thread Mill
+Sporto               +918177815474 SO19010847            1 SO19010847
+18/04/2018      30000 18/04/2028
+
+EQID002              Cardio
+Get Fit              +919876315474 GF19071147            1 GF19071147
+21/01/2018      45000 21/01/2028
+
+EQUIPID              EQUIPNAME
+-------------------- --------------------------------------------------
+COMPANY              SERVICECONTAC RECEIPTID        STATUS RECEIPTID
+-------------------- ------------- ------------ ---------- ------------
+DOPURCHASE       COST WARRENTY_T
+---------- ---------- ----------
+
+EQID003              Stationary Bicycle
+AVS Gyms             +918877874481 AVS1210822            1 AVS1210822
+29/03/2019      30000 29/03/2024
+
+
+SQL> Select Eq.EquipID,Tr.Cost from gymequipment Eq,Eqtran tr where tr.cost>(select avg(cost) from eqtran);
+
+EQUIPID                    COST
+-------------------- ----------
+EQID001                   45000
+EQID002                   45000
+EQID003                   45000
+EQID001                   45500
+EQID002                   45500
+EQID003                   45500
+
+6 rows selected.
+
+SQL> select avg(cost) from eqtran;
+
+ AVG(COST)
+----------
+     37625
+
+SQL> Select Eq.EquipID,Tr.Cost from gymequipment Eq,Eqtran tr where eq.ReceiptId=tr.ReceiptId and tr.cost>(select avg(cost) from eqtran);
+
+EQUIPID                    COST
+-------------------- ----------
+EQID002                   45000
+
+SQL> Select * from eqtran natural join gymequipment;
+
+RECEIPTID    DOPURCHASE       COST WARRENTY_T EQUIPID
+------------ ---------- ---------- ---------- --------------------
+EQUIPNAME                                          COMPANY
+-------------------------------------------------- --------------------
+SERVICECONTAC     STATUS
+------------- ----------
+SO19010847   18/04/2018      30000 18/04/2028 EQID001
+Thread Mill                                        Sporto
++918177815474          1
+
+GF19071147   21/01/2018      45000 21/01/2028 EQID002
+Cardio                                             Get Fit
++919876315474          1
+
+RECEIPTID    DOPURCHASE       COST WARRENTY_T EQUIPID
+------------ ---------- ---------- ---------- --------------------
+EQUIPNAME                                          COMPANY
+-------------------------------------------------- --------------------
+SERVICECONTAC     STATUS
+------------- ----------
+
+AVS1210822   29/03/2019      30000 29/03/2024 EQID003
+Stationary Bicycle                                 AVS Gyms
++918877874481          1
+
+SQL> Select * from gymequipment Eq Right join Eqtran tr on eq.ReceiptId=tr.ReceiptId;
+
+EQUIPID              EQUIPNAME
+-------------------- --------------------------------------------------
+COMPANY              SERVICECONTAC RECEIPTID        STATUS RECEIPTID
+-------------------- ------------- ------------ ---------- ------------
+DOPURCHASE       COST WARRENTY_T
+---------- ---------- ----------
+EQID001              Thread Mill
+Sporto               +918177815474 SO19010847            1 SO19010847
+18/04/2018      30000 18/04/2028
+
+EQID002              Cardio
+Get Fit              +919876315474 GF19071147            1 GF19071147
+21/01/2018      45000 21/01/2028
+
+EQUIPID              EQUIPNAME
+-------------------- --------------------------------------------------
+COMPANY              SERVICECONTAC RECEIPTID        STATUS RECEIPTID
+-------------------- ------------- ------------ ---------- ------------
+DOPURCHASE       COST WARRENTY_T
+---------- ---------- ----------
+
+EQID003              Stationary Bicycle
+AVS Gyms             +918877874481 AVS1210822            1 AVS1210822
+29/03/2019      30000 29/03/2024
+
+
+                                                           AEF1902072
+
+EQUIPID              EQUIPNAME
+-------------------- --------------------------------------------------
+COMPANY              SERVICECONTAC RECEIPTID        STATUS RECEIPTID
+-------------------- ------------- ------------ ---------- ------------
+DOPURCHASE       COST WARRENTY_T
+---------- ---------- ----------
+01/01/2019      30000 01/01/2026
+
+
+SQL> Select * from gymequipment Eq Left join Eqtran tr on eq.ReceiptId=tr.ReceiptId;
+
+EQUIPID              EQUIPNAME
+-------------------- --------------------------------------------------
+COMPANY              SERVICECONTAC RECEIPTID        STATUS RECEIPTID
+-------------------- ------------- ------------ ---------- ------------
+DOPURCHASE       COST WARRENTY_T
+---------- ---------- ----------
+EQID001              Thread Mill
+Sporto               +918177815474 SO19010847            1 SO19010847
+18/04/2018      30000 18/04/2028
+
+EQID002              Cardio
+Get Fit              +919876315474 GF19071147            1 GF19071147
+21/01/2018      45000 21/01/2028
+
+EQUIPID              EQUIPNAME
+-------------------- --------------------------------------------------
+COMPANY              SERVICECONTAC RECEIPTID        STATUS RECEIPTID
+-------------------- ------------- ------------ ---------- ------------
+DOPURCHASE       COST WARRENTY_T
+---------- ---------- ----------
+
+EQID003              Stationary Bicycle
+AVS Gyms             +918877874481 AVS1210822            1 AVS1210822
+29/03/2019      30000 29/03/2024
+
+
+SQL> Select * from gymequipment Eq Inner join Eqtran tr on eq.ReceiptId=tr.ReceiptId;
+
+EQUIPID              EQUIPNAME
+-------------------- --------------------------------------------------
+COMPANY              SERVICECONTAC RECEIPTID        STATUS RECEIPTID
+-------------------- ------------- ------------ ---------- ------------
+DOPURCHASE       COST WARRENTY_T
+---------- ---------- ----------
+EQID001              Thread Mill
+Sporto               +918177815474 SO19010847            1 SO19010847
+18/04/2018      30000 18/04/2028
+
+EQID002              Cardio
+Get Fit              +919876315474 GF19071147            1 GF19071147
+21/01/2018      45000 21/01/2028
+
+EQUIPID              EQUIPNAME
+-------------------- --------------------------------------------------
+COMPANY              SERVICECONTAC RECEIPTID        STATUS RECEIPTID
+-------------------- ------------- ------------ ---------- ------------
+DOPURCHASE       COST WARRENTY_T
+---------- ---------- ----------
+
+EQID003              Stationary Bicycle
+AVS Gyms             +918877874481 AVS1210822            1 AVS1210822
+29/03/2019      30000 29/03/2024
+
