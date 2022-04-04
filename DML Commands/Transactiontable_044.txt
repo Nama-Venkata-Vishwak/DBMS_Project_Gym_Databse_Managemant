@@ -1,0 +1,86 @@
+SQL> CREATE TABLE transactiontable
+  2  (
+  3  customerid VARCHAR(255),
+  4  transactionid VARCHAR(255),
+  5  dateofpurchase DATE,
+  6  amount INT
+  7  );
+
+Table created.
+
+SQL> INSERT INTO transactiontable VALUES('SGM001','T00001','1-june-2021',1999);
+
+1 row created.
+
+SQL> INSERT INTO transactiontable VALUES('SGM002','T00002','1-july-2021',1999);
+
+1 row created.
+
+SQL> INSERT INTO transactiontable VALUES('SGM003','T00003','1-january-2021',1999);
+
+1 row created.
+
+
+
+SQL> SELECT * FROM transactiontable;
+
+CUSTOMERID                                                                      
+--------------------------------------------------------------------------------
+TRANSACTIONID                                                                   
+--------------------------------------------------------------------------------
+DATEOFPUR     AMOUNT                                                            
+--------- ----------                                                            
+SGM001                                                                          
+T00001                                                                          
+01-JUN-21       1999                                                            
+                                                                                
+SGM002                                                                          
+T00002                                                                          
+01-JUL-21       1999                                                            
+
+CUSTOMERID                                                                      
+--------------------------------------------------------------------------------
+TRANSACTIONID                                                                   
+--------------------------------------------------------------------------------
+DATEOFPUR     AMOUNT                                                            
+--------- ----------                                                            
+                                                                                
+SGM003                                                                          
+T00003                                                                          
+01-JAN-21       1999                                                            
+                                                                                
+
+SQL> INSERT INTO transactiontable VALUES('SGM004',T00004','5-february-2022',1999);
+ERROR:
+ORA-01756: quoted string not properly terminated 
+
+
+SQL> DELETE FROM transactiontable WHERE customerid='SGM002';
+
+1 row deleted.
+
+SQL> SELECT * FROM transactiontable;
+
+CUSTOMERID                                                                      
+--------------------------------------------------------------------------------
+TRANSACTIONID                                                                   
+--------------------------------------------------------------------------------
+DATEOFPUR     AMOUNT                                                            
+--------- ----------                                                            
+SGM001                                                                          
+T00001                                                                          
+01-JUN-21       1999                                                            
+                                                                                
+SGM003                                                                          
+T00003                                                                          
+01-JAN-21       1999                                                            
+
+CUSTOMERID                                                                      
+--------------------------------------------------------------------------------
+TRANSACTIONID                                                                   
+--------------------------------------------------------------------------------
+DATEOFPUR     AMOUNT                                                            
+--------- ----------                                                            
+                                                                                
+
+SQL> spool end;
