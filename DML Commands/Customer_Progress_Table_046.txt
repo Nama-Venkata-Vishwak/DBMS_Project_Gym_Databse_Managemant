@@ -1,0 +1,40 @@
+SQL> create table CustProgress
+  2  (
+  3  custid varchar(10),
+  4  jdate DATE,
+  5  jweight float,
+  6  height float,
+  7  cweight float,
+  8  bmi float,
+  9  mweight float
+ 10  );
+create table CustProgress
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> INSERT INTO CustProgress VALUES('C101','01-january-2022',65.2,5.8,62.3,22.3,48);
+
+1 row created.
+
+SQL> INSERT INTO CustProgress VALUES('C102','10-january-2022',83.4,5.9,72.2,24.8,55);
+
+1 row created.
+
+SQL> INSERT INTO CustProgress VALUES('C103','05-february-2022',62.8,5.6,55.7,20.2,32);
+
+1 row created.
+
+SQL> SELECT * from CustProgress;
+
+CUSTID     JDATE        JWEIGHT     HEIGHT    CWEIGHT        BMI    MWEIGHT     
+---------- --------- ---------- ---------- ---------- ---------- ----------     
+C101       01-JAN-22       65.2        5.8       62.3       22.3         48     
+C102       10-JAN-22       83.4        5.9       72.2       24.8         55     
+C103       05-FEB-22       62.8        5.6       55.7       20.2         32     
+
+
+3 rows selected.
+
+SQL> Spool off
