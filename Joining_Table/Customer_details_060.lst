@@ -1,0 +1,210 @@
+SQL*Plus: Release 11.2.0.4.0 Production on Mon Mar 28 14:27:44 2022
+
+Copyright (c) 1982, 2013, Oracle. All rights reserved.
+
+Enter user-name: RA1911032010060/RA1911032010060@52.45.190.47:1521/ORCL
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+
+SQL> Sppol exp7.lst
+
+SQL> CREATE TABLE DEPOSITER(cus_name varchar(55),acno integer);
+
+Table created.
+
+SQL> CREATE TABLE BORROWER(cus_name varchar(55),loanno integer);
+
+Table created.
+
+SQL> INSERT INTO DEPOSITER VALUES('VINAY', 454542);
+
+1 row created.
+
+SQL> INSERT INTO DEPOSITER VALUES('VENKAT', 456874);
+
+1 row created.
+
+SQL> INSERT INTO DEPOSITER VALUES('NOHA', 255365)
+2 ;
+
+1 row created.
+
+SQL> INSERT INTO DEPOSITER VALUES('MEHUL', 123456);
+
+1 row created.
+
+SQL> INSERT INTO DEPOSITER VALUES('MOHIT',NULL);
+
+1 row created.
+
+SQL> INSERT INTO BORROWER VALUES('MEHUL',NULL);
+
+1 row created.
+
+SQL> INSERT INTO BORROWER VALUES('VENKAT',NULL);
+
+1 row created.
+
+SQL> INSERT INTO BORROWER VALUES('VINAY',589625);
+
+1 row created.
+
+SQL> INSERT INTO BORROWER VALUES('NOHA',895614);
+
+1 row created.
+
+SQL> INSERT INTO BORROWER VALUES('MOHIT',478985);
+
+1 row created.
+
+SQL> select cus_name from (DEPOSITER natural full outer join BORROWER ) where acno is null or
+loanno is null;
+
+CUS_NAME
+-------------------------------------------------------
+MEHUL
+VENKAT
+VENKAT
+MOHIT
+MEHUL
+VENKAT
+VENKAT
+Mehul
+
+8 rows selected.
+
+SQL> (select cus_name,acno from DEPOSITER where acno is null) UNION ALL (SELECT
+cus_name,loanno from BORROWER where loanno is not null);
+
+CUS_NAME ACNO
+------------------------------------------------------- ----------
+MOHIT
+VINAY 589625
+NOHA 895614
+MOHIT 478985
+NOHA 895614
+VINAY 589625
+
+6 rows selected.
+
+SQL> CREATE TABLE EMPLOYEE(empno integer,ename varchar(55),sal integer);
+
+Table created.
+
+SQL> CREATE TABLE DEPARTMENT(deptno integer,deptname varchar(55),salgrade integer);
+
+Table created.
+
+SQL> DROP TABLE EMPLOYEE;
+
+Table dropped.
+
+SQL> DROP TABLE DEPARTMENT;
+
+Table dropped.
+
+SQL> CREATE TABLE EMP
+2 (EMPNO NUMBER(4) NOT NULL,
+3 ENAME VARCHAR2(10),
+4 JOB VARCHAR2(9),
+5 MGR NUMBER(4),
+6 HIREDATE DATE,
+7 SAL NUMBER(7, 2),
+8 COMM NUMBER(7, 2),
+9 DEPTNO NUMBER(2));
+
+Table created.
+
+SQL> INSERT INTO EMP VALUES
+2 (7369, 'SMITH', 'CLERK', 7902,
+3 TO_DATE('17-MAR-1980', 'DD-MON-YYYY'), 800, NULL, 20);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES
+2 (7499, 'ALLEN', 'SALESMAN', 7698,
+3 TO_DATE('20-MAR-1981', 'DD-MON-YYYY'), 1600, 300, 30);
+
+1 row created.
+
+SQL>
+SQL> INSERT INTO EMP VALUES
+2 (7521, 'WARD', 'SALESMAN', 7698,
+3 TO_DATE('22-MAR-1981', 'DD-MON-YYYY'), 1250, 500, 30);
+
+1 row created.
+
+SQL>
+SQL> INSERT INTO EMP VALUES
+2 (7566, 'JONES', 'MANAGER', 7839,
+3 TO_DATE('2-MAR-1981', 'DD-MON-YYYY'), 2975, NULL, 20);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES
+2 (7654, 'MARTIN', 'SALESMAN', 7698,
+3 TO_DATE('28-MAR-1981', 'DD-MON-YYYY'), 1250, 1400, 30);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES
+2 (7782, 'CLARK', 'MANAGER', 7839,
+3 TO_DATE('9-MAR-1981', 'DD-MON-YYYY'), 2450, NULL, 10);
+
+1 row created.
+
+SQL>CREATE TABLE DEPT
+1 (DEPTNO NUMBER(2),
+2 DNAME VARCHAR2(14),
+3 LOC VARCHAR2(13) );
+
+Table created.
+
+SQL>INSERT INTO DEPT VALUES (10, 'ACCOUNTING', 'NEW YORK');
+
+1 row created.
+
+SQL>INSERT INTO DEPT VALUES (20, 'RESEARCH', 'DALLAS');
+
+1 row created.
+
+SQL>INSERT INTO DEPT VALUES (30, 'SALES', 'CHICAGO');
+
+1 row created.
+
+SQL>INSERT INTO DEPT VALUES (40, 'OPERATIONS', 'BOSTON');
+
+1 row created.
+
+SQL>CREATE TABLE SALGRADE
+1 (GRADE NUMBER,
+2 LOSAL NUMBER,
+3 HISAL NUMBER);
+
+SQL>INSERT INTO SALGRADE VALUES (1, 700, 1200);
+
+1 row created.
+
+SQL>INSERT INTO SALGRADE VALUES (2, 1201, 1400);
+
+1 row created.
+
+SQL>INSERT INTO SALGRADE VALUES (3, 1401, 2000);
+
+1 row created.
+
+SQL>INSERT INTO SALGRADE VALUES (4, 2001, 3000);
+
+1 row created.
+
+SQL>INSERT INTO SALGRADE VALUES (5, 3001, 9999);
+
+1 row created.
+
+SQL>SELECT e.Empno, e.Ename, e.Job, e.Mgr, e.Hiredate, e.Sal, e.Comm, e.Deptno, d.Dname,
+d.Loc, s.Grade
+1 FROM Emp e
+2 INNER JOIN Dept d ON d.Deptno=e.Deptno
+3 INNER JOIN Salgrade s ON e.Sal BETWEEN s.Losal AND s.Hisal
+4 WHERE e.Ename = 'KING';
