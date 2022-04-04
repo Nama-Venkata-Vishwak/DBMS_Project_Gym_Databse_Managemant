@@ -1,0 +1,69 @@
+SQL*Plus: Release 11.2.0.4.0 Production on Wed Mar 16 15:00:16 2022
+
+Copyright (c) 1982, 2013, Oracle.  All rights reserved.
+
+Enter user-name: RA1911032010060/RA1911032010060@drpvigneshwaran-q1.c6hfisyr3ugy.us-east-1.rds.amazonaws.com:1521/q1
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+
+SQL> Spool sample.lst
+SQL> create table customer_details(customerID int, name varchar(20), PackageID int, DateofJoining date);
+
+Table created.
+
+SQL> desc customer_details;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CUSTOMERID                                         NUMBER(38)
+ NAME                                               VARCHAR2(20)
+ PACKAGEID                                          NUMBER(38)
+ DATEOFJOINING                                      DATE
+
+SQL> create view customer_details as select customerID,name,PackageID,DateofJoining;
+create view customer_details as select customerID,name,PackageID,DateofJoining
+                                                                             *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> create view customer_details as select customerID,name,PackageID,DateofJoining from customer_details;
+create view customer_details as select customerID,name,PackageID,DateofJoining from customer_details
+            *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> create view customer_details_view as select customerID,name,PackageID,DateofJoining from customer_details;
+
+View created.
+
+SQL> desc customer_details_view;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CUSTOMERID                                         NUMBER(38)
+ NAME                                               VARCHAR2(20)
+ PACKAGEID                                          NUMBER(38)
+ DATEOFJOINING                                      DATE
+
+SQL> insert into customer_details_view values(001,'venkat',999,'10-Sep-2020');
+
+1 row created.
+
+SQL> insert into customer_details_view values(002,'noha',699,'23-Jan-2020');
+
+1 row created.
+
+SQL> select*from customer_details_view;
+
+SQL> create or replace view name_view as select name,PackageID from customer_details;
+
+View created.
+
+SQL> select * from name_view;
+
+NAME            PackageID
+---------- ----------
+noha         699
+
+SQL> spool off
