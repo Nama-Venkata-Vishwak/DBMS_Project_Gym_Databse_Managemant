@@ -1,0 +1,172 @@
+SQL> CREATE TABLE transactiondetails6 ( custid VARCHAR2(20), custname VARCHAR2(25), PACKAGEID VARCHAR2(25),Numberofmonthssubscribed VARCHAR2(20), DATEOFJOINING DATE,DiscountID VARCHAR2(255), Averagemonthlyfees INT );
+
+Table created.
+
+SQL> ALTER TABLE transactiondetails6 MODIFY(custname varchar2(25) NOT NULL, Numberofmonthssubscribed char(25) NOT NULL);
+
+Table altered.
+
+SQL> ALTER TABLE transactiondetails6 ADD CONSTRAINT transactiondetails_ck CHECK(Averagemonthlyfees BETWEEN 0 AND 3000);
+
+Table altered.
+
+SQL> CREATE TABLE customer (custname varchar2(25),age integer);
+
+Table created.
+
+SQL> CREATE TABLE customer1 (custid varchar2(25),custname varchar2(25),age integer);
+
+Table created.
+
+SQL> ALTER TABLE customer1 ADD CONSTRAINT customer1_pk PRIMARY KEY(custid);
+
+Table altered.
+
+SQL> ALTER TABLE transactiondetails6 ADD CONSTRAINT transactiondetails6_fk FOREIGN KEY(custid) REFERENCES customer(custid);
+ALTER TABLE transactiondetails6 ADD CONSTRAINT transactiondetails6_fk FOREIGN KEY(custid) REFERENCES customer(custid)
+                                                                                                        *
+ERROR at line 1:
+ORA-00904: "CUSTID": invalid identifier
+
+
+SQL> ALTER TABLE transactiondetails6 ADD CONSTRAINT transactiondetails6_fk FOREIGN KEY(custid) REFERENCES customer1(custid);
+
+Table altered.
+
+SQL> ALTER TABLE transactiondetails6 DROP CONSTRAINT transactiondetails6_fk;
+
+Table altered.
+
+SQL> ALTER TABLE transactiondetails6 DISABLE CONSTRAINT transactiondetails6_pk CASCADE;
+ALTER TABLE transactiondetails6 DISABLE CONSTRAINT transactiondetails6_pk CASCADE
+*
+ERROR at line 1:
+ORA-02431: cannot disable constraint (transactiondetails6_PK) - no such constraint
+
+
+SQL> ALTER TABLE customer1 DISABLE CONSTRAINT customer1_pk CASCADE;
+
+Table altered.
+
+SQL> SELECT * FROM user_constraints WHERE table_name = 'transactiondetails6';
+
+no rows selected
+
+SQL> SELECT CHECK FROM user_constraints WHERE table_name = 'transactiondetails6';
+SELECT CHECK FROM user_constraints WHERE table_name = 'transactiondetails6'
+       *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> SELECT constraint_name, constraint_type, search_condition FROM user_constraints WHERE table_name = 'transactiondetails6';
+
+no rows selected
+
+SQL> SELECT constraint_name, constraint_type, search_condition FROM user_constraints WHERE table_name = 'transactiondetails6' and constraint_type='C';
+
+no rows selected
+
+SQL> ALTER TABLE transactiondetails6 ADD CONSTRAINT transactiondetails6_pk PRIMARY KEY(custid);
+
+Table altered.
+
+SQL> SELECT constraint_name, constraint_type, search_condition FROM user_constraints WHERE table_name = 'transactiondetails6' and constraint_type='C';
+
+no rows selected
+
+SQL> SELECT constraint_name, constraint_type, search_condition FROM user_constraints WHERE table_name = 'transactiondetails6';
+
+no rows selected
+
+SQL> SELECT constraint_name, constraint_type, search_condition FROM User_constraints WHERE table_name = 'transactiondetails6';
+
+no rows selected
+
+SQL> SELECT * FROM transactiondetails
+  2  ;
+
+no rows selected
+
+SQL> SELECT * FROM transactiondetails6;
+
+no rows selected
+
+SQL> INSERT INTO transactiondetails6 VALUES('SGM001','Guru','Sahu','Appendix',TO_DATE('26-12-2021','DD-MM-YYYY'),'No Cardio',1000);
+
+1 row created.
+
+SQL> SELECT constraint_name, constraint_type, search_condition FROM user_constraints WHERE table_name = 'transactiondetails6';
+
+no rows selected
+
+SQL> SELECT * FROM transactiondetails
+  2  ;
+
+no rows selected
+
+SQL> SELECT * FROM transactiondetails6;
+
+CUSTID
+--------------------
+TRANSID
+--------------------------------------------------------------------------------
+DATEOFPURCHASE
+--------------------------------------------------------------------------------
+AMOUNT
+----------
+SGM001
+
+CUSTID
+--------------------
+TRANSID
+--------------------------------------------------------------------------------
+DATEOFPURCHASE
+---------
+AMOUNT
+----------
+CUSTID
+--------------------
+TRANSID
+--------------------------------------------------------------------------------
+DATEOFPURCHASE
+--------------------------------------------------------------------------------
+AMOUNT
+---------
+SGM002
+
+CUSTID
+--------------------
+TRANSID
+--------------------------------------------------------------------------------
+DATEOFPURCHASE
+--------------------------------------------------------------------------------
+AMOUNT
+---------
+
+CUSTID
+--------------------
+TRANSID
+--------------------------------------------------------------------------------
+DATEOFPURCHASE
+--------------------------------------------------------------------------------
+AMOUNT
+---------
+
+SQL> SELECT constraint_name, constraint_type, search_condition FROM user_constraints WHERE table_name = 'transactiondetails6';
+
+no rows selected
+
+SQL> SELECT constraint_name, constraint_type, search_condition FROM user_constraints WHERE table_name = 'transactiondetails6'and type = 'C';
+SELECT constraint_name, constraint_type, search_condition FROM user_constraints WHERE table_name = 'transactiondetails6'and type = 'C'
+                                                                                                                         *
+ERROR at line 1:
+ORA-00904: "TYPE": invalid identifier
+
+
+SQL> SELECT Constraint_name, Search_condition FROM User_constraints WHERE table_name = 'transactiondetails6';
+
+no rows selected
+
+SQL> spool end;
+SQL> edit exp5.lst
