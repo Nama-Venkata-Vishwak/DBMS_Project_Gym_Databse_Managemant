@@ -1,0 +1,70 @@
+SQL> CREATE TABLE transtable
+  2  (
+  3  custid VARCHAR(25),
+  4  transid VARCHAR(25),
+  5  dateofpurc DATE,
+  6  amount INT
+  7  );
+
+Table created.
+
+SQL> INSERT INTO transtable VALUES('SGM001','T00001','1-june-2001',2022);
+
+1 row created.
+
+SQL> INSERT INTO transtable VALUES('SGM002',T00002','1-july-2021',1999);
+ERROR:
+ORA-01756: quoted string not properly terminated 
+
+
+SQL> INSERT INTO transtable VALUES('SGM002','T00002','1-july-2021',1999);
+
+1 row created.
+                                                            
+SQL> INSERT INTO transtable VALUES('SGM003','T00003','1-august-2021',1999);
+
+1 row created.
+
+SQL> SELECT * FROM transtable;
+
+CUSTID                    TRANSID                   DATEOFPUR     AMOUNT        
+------------------------- ------------------------- --------- ----------        
+SGM001                    T00001                    01-JUN-01       2022        
+SGM002                    T00002                    01-JUL-21       1999        
+SGM003                    T00003                    01-AUG-21       1999        
+
+
+SQL> create view empview as select * from transtable where custid='SGM001';
+
+View created.
+
+SQL> create view empview1 as select custid,transid from transtable;
+
+View created.
+
+SQL> delete from empview1 where custid='SGM001';
+
+1 row deleted.
+
+SQL> select * from empview1;
+
+CUSTID                    TRANSID                   DATEOFPUR     AMOUNT        
+------------------------- ------------------------- --------- ----------        
+SGM002                    T00002                    01-JUL-21       1999        
+SGM003                    T00003                    01-AUG-21       1999        
+
+SQL> update empview1 set transid='T00002' where custid='SGM002';
+
+1 row updated.
+
+SQL> delete empview1 where custid='SGM002';
+
+1 row deleted.
+
+SQL> drop view empview1;
+
+View dropped.
+
+
+
+SQL> Spool off
