@@ -1,0 +1,76 @@
+SQL> create table emp_049(emp_no number(6),emp_name varchar2(30),job varchar2(30),dept_no number(6),sal number(6),dept_name varchar2(30));
+
+Table created.
+
+SQL> Insert into emp_049 values (100,'shushrut','ASP',10,1700,'CSE');
+
+1 row created.
+
+SQL> insert into emp_049 values (101,'viren','AP',20,1500,'MECH');
+
+1 row created.
+
+SQL> insert into emp_049 values (102,'Vidhi','ASP',10,2500,'CSE');
+
+1 row created.
+
+SQL> insert into emp_049 values (103,'Sachin','AP',20,1800,'MECH');
+
+1 row created.
+
+SQL> insert into emp_049 values (104,'Parma','ASP',10,1700,'CSE');
+
+1 row created.
+
+SQL> create view empview as select * from emp_049 where job='ASP';
+
+View created.
+
+SQL> create view empview1 as select emp_no,dept_no,emp_name,sal,dept_name from
+  2    2  emp_049;
+  2  emp_049
+  *
+ERROR at line 2:
+ORA-00903: invalid table name 
+
+
+SQL> create view empview1 as select emp_no,dept_no,emp_name,sal,dept_name from emp_049;
+
+View created.
+
+SQL> delete from empview1 where dept_no='10';
+
+3 rows deleted.
+
+SQL> select * from empview1;
+
+    EMP_NO    DEPT_NO EMP_NAME                              SAL                 
+---------- ---------- ------------------------------ ----------                 
+DEPT_NAME                                                                       
+------------------------------                                                  
+       101         20 viren                                1500                 
+MECH                                                                            
+                                                                                
+       103         20 Sachin                               1800                 
+MECH                                                                            
+                                                                                
+
+SQL> Insert into empview1 values(106,10,'freddy',5000,'CSE');
+
+1 row created.
+
+SQL> update empview1 set emp_name='sona' where emp_no='101';
+
+1 row updated.
+
+SQL> delete empview1 where emp_name='sona';
+
+1 row deleted.
+
+SQL> rop view empview1;
+SP2-0734: unknown command beginning "rop view e..." - rest of line ignored.
+SQL> drop view empview1;
+
+View dropped.
+
+SQL> Spool off
