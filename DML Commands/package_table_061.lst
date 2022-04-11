@@ -1,0 +1,195 @@
+SQL> ALTER TABLE pack ADD primary key(packageID);
+
+Table altered.
+
+SQL> SELECT*FROM pack;
+
+no rows selected
+
+SQL> DESC pack;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PACKAGEID                                 NOT NULL VARCHAR2(255)
+ PACKAGENAME                                        VARCHAR2(255)
+ DURATION                                           NUMBER
+ AMOUNT                                             NUMBER
+ PACKDESC                                           VARCHAR2(255)
+
+SQL> SELECT*FROM pack;
+
+no rows selected
+
+SQL> SELECT*packageID FROM pack;
+SELECT*packageID FROM pack
+       *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT packageID FROM pack;
+
+no rows selected
+
+SQL> SELECT amount FROM pack;
+
+no rows selected
+
+SQL> INSERT INTO pack VALUES('A123','3x.week',3,1400,'3months');
+
+1 row created.
+
+SQL> INSERT INTO pack VALUES('B124','4x.week',4,1600,'4months');
+
+1 row created.
+
+SQL> INSERT INTO pack VALUES('C125','5x.week',5,1800,'5months');
+
+1 row created.
+
+SQL> INSERT INTO pack VALUES('D126','6x.week',6,2000,'6months');
+
+1 row created.
+
+SQL> SELECT packageID,duration,amount,packdesc FROM pack;
+
+PACKAGEID                                                                       
+--------------------------------------------------------------------------------
+  DURATION     AMOUNT                                                           
+---------- ----------                                                           
+PACKDESC                                                                        
+--------------------------------------------------------------------------------
+A123                                                                            
+         3       1400                                                           
+3months                                                                         
+                                                                                
+B124                                                                            
+         4       1600                                                           
+4months                                                                         
+
+PACKAGEID                                                                       
+--------------------------------------------------------------------------------
+  DURATION     AMOUNT                                                           
+---------- ----------                                                           
+PACKDESC                                                                        
+--------------------------------------------------------------------------------
+                                                                                
+C125                                                                            
+         5       1800                                                           
+5months                                                                         
+                                                                                
+D126                                                                            
+         6       2000                                                           
+
+PACKAGEID                                                                       
+--------------------------------------------------------------------------------
+  DURATION     AMOUNT                                                           
+---------- ----------                                                           
+PACKDESC                                                                        
+--------------------------------------------------------------------------------
+6months                                                                         
+                                                                                
+
+SQL> INSERT INTO pack
+  2  VALUES('E127','7x.week',7,2200,'7months');
+
+1 row created.
+
+SQL> SELECT packageID,packagename,duration,amount,packdesc FROM pack WHERE duration = 7;
+
+PACKAGEID                                                                       
+--------------------------------------------------------------------------------
+PACKAGENAME                                                                     
+--------------------------------------------------------------------------------
+  DURATION     AMOUNT                                                           
+---------- ----------                                                           
+PACKDESC                                                                        
+--------------------------------------------------------------------------------
+E127                                                                            
+7x.week                                                                         
+         7       2200                                                           
+7months                                                                         
+                                                                                
+
+SQL> UPDATE pack SET duration = 9 WHERE duration = 6;
+
+1 row updated.
+
+SQL> SELECT packageID,packagename,duration,amount,packdesc FROM pack WHERE duration = 9;
+
+PACKAGEID                                                                       
+--------------------------------------------------------------------------------
+PACKAGENAME                                                                     
+--------------------------------------------------------------------------------
+  DURATION     AMOUNT                                                           
+---------- ----------                                                           
+PACKDESC                                                                        
+--------------------------------------------------------------------------------
+D126                                                                            
+6x.week                                                                         
+         9       2000                                                           
+6months                                                                         
+                                                                                
+
+SQL> DELETE FROM pack WHERE duration = 9 AND packageID = 'D126';
+
+1 row deleted.
+
+SQL> SELECT packageID,packagename,duration,amount,packdesc FROM pack;
+
+PACKAGEID                                                                       
+--------------------------------------------------------------------------------
+PACKAGENAME                                                                     
+--------------------------------------------------------------------------------
+  DURATION     AMOUNT                                                           
+---------- ----------                                                           
+PACKDESC                                                                        
+--------------------------------------------------------------------------------
+A123                                                                            
+3x.week                                                                         
+         3       1400                                                           
+3months                                                                         
+                                                                                
+
+PACKAGEID                                                                       
+--------------------------------------------------------------------------------
+PACKAGENAME                                                                     
+--------------------------------------------------------------------------------
+  DURATION     AMOUNT                                                           
+---------- ----------                                                           
+PACKDESC                                                                        
+--------------------------------------------------------------------------------
+B124                                                                            
+4x.week                                                                         
+         4       1600                                                           
+4months                                                                         
+                                                                                
+
+PACKAGEID                                                                       
+--------------------------------------------------------------------------------
+PACKAGENAME                                                                     
+--------------------------------------------------------------------------------
+  DURATION     AMOUNT                                                           
+---------- ----------                                                           
+PACKDESC                                                                        
+--------------------------------------------------------------------------------
+C125                                                                            
+5x.week                                                                         
+         5       1800                                                           
+5months                                                                         
+                                                                                
+
+PACKAGEID                                                                       
+--------------------------------------------------------------------------------
+PACKAGENAME                                                                     
+--------------------------------------------------------------------------------
+  DURATION     AMOUNT                                                           
+---------- ----------                                                           
+PACKDESC                                                                        
+--------------------------------------------------------------------------------
+E127                                                                            
+7x.week                                                                         
+         7       2200                                                           
+7months                                                                         
+                                                                                
+
+SQL> Spool off
