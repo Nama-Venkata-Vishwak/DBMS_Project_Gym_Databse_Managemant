@@ -1,0 +1,105 @@
+SQL> CREATE TABLE emp1( empno number(4),
+  2  ename varchar2(10), job char(20), mgr number(10),
+  3  hiredate date, sal number(5), comm number(5),
+  4  deptno number(7,2) NOT NULL,
+  5  CONSTRAINT emp1_pk PRIMARY KEY (empno));
+CREATE TABLE emp1( empno number(4),
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> ALTER TABLE emp1 MODIFY(ename varchar2(20) NOT NULL,
+  2  job char(20) NOT NULL);
+
+Table altered.
+
+SQL> ALTER TABLE emp1 ADD CONSTRAINT emp1_pk
+  2  PRIMARY KEY(empno);
+PRIMARY KEY(empno)
+*
+ERROR at line 2:
+ORA-02260: table can have only one primary key 
+
+
+SQL> ALTER TABLE emp1 ADD CONSTRAINT emp1_pk
+  2  PRIMARY KEY(deptno
+  3  PRIMARY KEY(deptno);
+PRIMARY KEY(deptno)
+*
+ERROR at line 3:
+ORA-00907: missing right parenthesis 
+
+
+SQL> ALTER TABLE emp1 ADD CONSTRAINT emp1_pk
+  2  PRIMARY KEY(deptno);
+PRIMARY KEY(deptno)
+*
+ERROR at line 2:
+ORA-02260: table can have only one primary key 
+
+
+SQL> ALTER TABLE emp ADD CONSTRAINT emp_ck
+  2  CHECK(empno BETWEEN 7000 AND 8000)
+  3  ;
+
+Table altered.
+
+SQL> ALTER TABLE emp ADD CONSTRAINT emp_fk
+  2  FOREIGN KEY(deptno) REFERENCES DEPT(deptno);
+FOREIGN KEY(deptno) REFERENCES DEPT(deptno)
+            *
+ERROR at line 2:
+ORA-00904: "DEPTNO": invalid identifier 
+
+
+SQL> ALTER TABLE emp1 ADD CONSTRAINT emp_fk
+  2  FOREIGN KEY(deptno) REFERENCES DEPT(deptno);
+FOREIGN KEY(deptno) REFERENCES DEPT(deptno)
+                               *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+SQL> ALTER TABLE dept DROP PRIMARY KEY CASCADE;
+ALTER TABLE dept DROP PRIMARY KEY CASCADE
+*
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> ALTER TABLE emp dept DROP PRIMARY KEY CASCADE;
+ALTER TABLE emp dept DROP PRIMARY KEY CASCADE
+                *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> SELECT constraint_name, constraint_type, search_condition
+  2  FROM user_constraints
+  3  WHERE table_name = 'EMP';
+
+CONSTRAINT_NAME                                                                 
+--------------------------------------------------------------------------------
+C                                                                               
+-                                                                               
+SEARCH_CONDITION                                                                
+--------------------------------------------------------------------------------
+EMP_CK                                                                          
+C                                                                               
+empno BETWEEN 7000 AND 8000                                                     
+                                                                                
+
+SQL> SELECT constraint_name, column_name
+  2  FROM user_cons_columns
+  3  WHERE table_name = 'EMP';
+
+CONSTRAINT_NAME                                                                 
+--------------------------------------------------------------------------------
+COLUMN_NAME                                                                     
+--------------------------------------------------------------------------------
+EMP_CK                                                                          
+EMPNO                                                                           
+                                                                                
+
+SQL> Spool off
