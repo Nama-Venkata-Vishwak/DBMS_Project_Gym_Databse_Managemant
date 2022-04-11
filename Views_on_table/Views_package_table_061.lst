@@ -1,0 +1,143 @@
+SQL> Desc pak;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PACK_ID                                            VARCHAR2(50)
+ PACK_NAME                                          VARCHAR2(20)
+ DURATION                                           NUMBER(10)
+ AMOUNT                                             NUMBER(10)
+ PACK_DESC                                          VARCHAR2(30)
+
+SQL> Select *from pak;
+
+PACK_ID                                            PACK_NAME                    
+-------------------------------------------------- --------------------         
+  DURATION     AMOUNT PACK_DESC                                                 
+---------- ---------- ------------------------------                            
+A2B                                                GOLD                         
+         3       3000 3months                                                   
+                                                                                
+A4D                                                SILVER                       
+         4       4000 4months                                                   
+                                                                                
+
+SQL> Desc pakview;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PACK_ID                                            VARCHAR2(50)
+ PACK_NAME                                          VARCHAR2(20)
+ DURATION                                           NUMBER(10)
+ AMOUNT                                             NUMBER(10)
+ PACK_DESC                                          VARCHAR2(30)
+
+SQL> Select *from pakview;
+
+PACK_ID                                            PACK_NAME                    
+-------------------------------------------------- --------------------         
+  DURATION     AMOUNT PACK_DESC                                                 
+---------- ---------- ------------------------------                            
+A2B                                                GOLD                         
+         3       3000 3months                                                   
+                                                                                
+A4D                                                SILVER                       
+         4       4000 4months                                                   
+                                                                                
+
+SQL> Insert Into pakview Values('A4D','DIAMOND',5,5000,'5months');
+
+1 row created.
+
+SQL> Select * From pakview;
+
+PACK_ID                                            PACK_NAME                    
+-------------------------------------------------- --------------------         
+  DURATION     AMOUNT PACK_DESC                                                 
+---------- ---------- ------------------------------                            
+A2B                                                GOLD                         
+         3       3000 3months                                                   
+                                                                                
+A4D                                                SILVER                       
+         4       4000 4months                                                   
+                                                                                
+A4D                                                DIAMOND                      
+         5       5000 5months                                                   
+                                                                                
+
+SQL> Select * From pak;
+
+PACK_ID                                            PACK_NAME                    
+-------------------------------------------------- --------------------         
+  DURATION     AMOUNT PACK_DESC                                                 
+---------- ---------- ------------------------------                            
+A2B                                                GOLD                         
+         3       3000 3months                                                   
+                                                                                
+A4D                                                SILVER                       
+         4       4000 4months                                                   
+                                                                                
+A4D                                                DIAMOND                      
+         5       5000 5months                                                   
+                                                                                
+
+SQL> Delete From pakview Where DURATION =3;
+
+1 row deleted.
+
+SQL> Select *from pakview;
+
+PACK_ID                                            PACK_NAME                    
+-------------------------------------------------- --------------------         
+  DURATION     AMOUNT PACK_DESC                                                 
+---------- ---------- ------------------------------                            
+A4D                                                SILVER                       
+         4       4000 4months                                                   
+                                                                                
+A4D                                                DIAMOND                      
+         5       5000 5months                                                   
+                                                                                
+
+SQL> Update pakview Set PACK_ID='A3C' Where PACK_ID='A4D';
+
+2 rows updated.
+
+SQL> Select *from pakview;
+
+PACK_ID                                            PACK_NAME                    
+-------------------------------------------------- --------------------         
+  DURATION     AMOUNT PACK_DESC                                                 
+---------- ---------- ------------------------------                            
+A3C                                                SILVER                       
+         4       4000 4months                                                   
+                                                                                
+A3C                                                DIAMOND                      
+         5       5000 5months                                                   
+                                                                                
+
+SQL> Drop View pakview;
+
+View dropped.
+
+SQL> Create View pak_totsal(Pid,name,amo) As Select PACK_ID,PACK_NAME,AMOUNT From paK;
+Create View pak_totsal(Pid,name,amo) As Select PACK_ID,PACK_NAME,AMOUNT From paK
+            *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> Create View pak_sal(Pid,name,amo) As Select PACK_ID,PACK_NAME,AMOUNT From pak;
+
+View created.
+
+SQL> Select *from pak_sal;
+
+PID                                                NAME                         
+-------------------------------------------------- --------------------         
+       AMO                                                                      
+----------                                                                      
+A3C                                                SILVER                       
+      4000                                                                      
+                                                                                
+A3C                                                DIAMOND                      
+      5000                                                                      
+                                                                                
+
+SQL> Spool off
