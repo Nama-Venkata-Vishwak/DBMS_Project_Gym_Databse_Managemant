@@ -1,0 +1,144 @@
+SQL> Desc package;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PACK_ID                                            VARCHAR2(250)
+ PACK_NAME                                          VARCHAR2(20)
+ DURATION                                           NUMBER(10)
+ AMOUNT                                             NUMBER(10)
+ PACK_DESC                                          VARCHAR2(30)
+
+SQL> Select *from package;
+
+no rows selected
+
+SQL> INSERT INTO package VALUES('AB12','GOLD',4,4000,'4month');
+
+1 row created.
+
+SQL> INSERT INTO package VALUES('AB13','DIAMOND',5,5000,'5month');
+
+1 row created.
+
+SQL> Select *From package;
+
+PACK_ID                                                                         
+--------------------------------------------------------------------------------
+PACK_NAME              DURATION     AMOUNT PACK_DESC                            
+-------------------- ---------- ---------- ------------------------------       
+AB12                                                                            
+GOLD                          4       4000 4month                               
+                                                                                
+AB13                                                                            
+DIAMOND                       5       5000 5month                               
+                                                                                
+
+SQL> Create table package1
+  2  );
+)
+*
+ERROR at line 2:
+ORA-00922: missing or invalid option 
+
+
+SQL> Create table package1(
+  2  PACK_NAME VARCHAR2(150),
+  3  Period NUMBER
+  4  );
+
+Table created.
+
+SQL> INSERT INTO package1 VALUES('GOLD', 8);
+
+1 row created.
+
+SQL> INSERT INTO package1 VALUES('DIAMOND',9);
+
+1 row created.
+
+SQL> INSERT INTO package1 VALUES('PLATINUM',10);
+
+1 row created.
+
+SQL> (select PACK_NAME from package1)
+  2  union all (select PACK_NAME from package)
+  3  ;
+
+PACK_NAME                                                                       
+--------------------------------------------------------------------------------
+GOLD                                                                            
+DIAMOND                                                                         
+PLATINUM                                                                        
+GOLD                                                                            
+DIAMOND                                                                         
+
+SQL> (select PACK_NAME from package1)
+  2  union (select PACK_NAME from package);
+
+PACK_NAME                                                                       
+--------------------------------------------------------------------------------
+DIAMOND                                                                         
+GOLD                                                                            
+PLATINUM                                                                        
+
+SQL> (select PACK_NAME from package1)
+  2  INTERSECT (select PACK_NAME from package);
+
+PACK_NAME                                                                       
+--------------------------------------------------------------------------------
+DIAMOND                                                                         
+GOLD                                                                            
+
+SQL> (select PACK_NAME from package1)
+  2  INTERSECT ALL (select PACK_NAME from package);
+INTERSECT ALL (select PACK_NAME from package)
+          *
+ERROR at line 2:
+ORA-00928: missing SELECT keyword 
+
+
+SQL> (select PACK_NAME from package1)
+  2  intersect all (select PACK_NAME from package);
+intersect all (select PACK_NAME from package)
+          *
+ERROR at line 2:
+ORA-00928: missing SELECT keyword 
+
+
+SQL> (select PACK_NAME from package1)
+  2  MINUS (select PACK_NAME from package);
+
+PACK_NAME                                                                       
+--------------------------------------------------------------------------------
+PLATINUM                                                                        
+
+SQL> select package.PACK_NAME,package1.PACK_NAME from package1
+  2  ;
+select package.PACK_NAME,package1.PACK_NAME from package1
+       *
+ERROR at line 1:
+ORA-00904: "PACKAGE"."PACK_NAME": invalid identifier 
+
+
+SQL> select package.PACK_NAME,package1.PACK_NAME from package,package1
+  2  where package.amount = package1.period;
+
+no rows selected
+
+SQL> select package.PACK_NAME,package1.PACK_NAME from package,package1
+  2  where package.duration = package1.period;
+
+no rows selected
+
+SQL> select package.PACK_NAME
+  2  FROM package
+  3  inner join period ON package.PACK_NAME = package1.PACK_NAME
+  4  where duration =4;
+inner join period ON package.PACK_NAME = package1.PACK_NAME
+           *
+ERROR at line 3:
+ORA-03135: connection lost contact 
+Process ID: 16560 
+Session ID: 58 Serial number: 45661 
+
+
+SQL> spool off
