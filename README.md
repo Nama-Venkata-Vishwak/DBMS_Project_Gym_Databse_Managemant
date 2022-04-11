@@ -1,4 +1,4 @@
-# DBMS_Project_Gym_Databse_Managemant
+# DBMS_Project_Gym_Database_Managemant
 This is a SQL Based Project for managing the data of a GYM and its customers.
 ## Group Member Details
 Nama Venkata Vishwak     - RA1911032010029 
