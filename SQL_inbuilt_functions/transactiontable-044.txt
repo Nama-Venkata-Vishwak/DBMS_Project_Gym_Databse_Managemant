@@ -1,0 +1,97 @@
+SQL> CREATE TABLE emp
+  2  (
+  3  empno NUMBER,
+  4  empname VARCHAR2(255),
+  5  DOB DATE,
+  6  salary NUMBER,
+  7  designation VARCHAR2(20)
+  8  );
+
+Table created.
+
+
+SQL> INSERT INTO emp VALUES(100,'John','04.21.1994',50000,'Manager');
+INSERT INTO emp VALUES(100,'John','04.21.1994',50000,'Manager')
+                                  *
+ERROR at line 1:
+ORA-01843: not a valid month 
+
+
+SQL> INSERT INTO emp VALUES(100,'John','21-april-1994',50000,'Manager');
+
+1 row created.
+
+SQL> INSERT INTO emp VALUES(101,'Greg','20-june-1994',25000,'Clerk');
+
+1 row created.
+
+SQL> SELECT * FROM emp;
+
+     EMPNO                                                                      
+----------                                                                      
+EMPNAME                                                                         
+--------------------------------------------------------------------------------
+DOB           SALARY DESIGNATION                                                
+--------- ---------- --------------------                                       
+       100                                                                      
+John                                                                            
+21-APR-94      50000 Manager                                                    
+                                                                                
+       101                                                                      
+Greg                                                                            
+20-JUN-94      25000 Clerk                                                      
+
+     EMPNO                                                                      
+----------                                                                      
+EMPNAME                                                                         
+--------------------------------------------------------------------------------
+DOB           SALARY DESIGNATION                                                
+--------- ---------- --------------------                                       
+                                                                                
+
+SQL> UPDATE emp SET salary = salary + 1000;
+
+2 rows updated.
+
+SQL> SELECT * FROM emp;
+
+     EMPNO                                                                      
+----------                                                                      
+EMPNAME                                                                         
+--------------------------------------------------------------------------------
+DOB           SALARY DESIGNATION                                                
+--------- ---------- --------------------                                       
+       100                                                                      
+John                                                                            
+21-APR-94      51000 Manager                                                    
+                                                                                
+       101                                                                      
+Greg                                                                            
+20-JUN-94      26000 Clerk                                                      
+
+     EMPNO                                                                      
+----------                                                                      
+EMPNAME                                                                         
+--------------------------------------------------------------------------------
+DOB           SALARY DESIGNATION                                                
+--------- ---------- --------------------                                       
+                                                                                
+
+SQL> DELETE FROM emp WHERE empno = 100;
+
+1 row deleted.
+
+SQL> SELECT * FROM emp;
+
+     EMPNO                                                                      
+----------                                                                      
+EMPNAME                                                                         
+--------------------------------------------------------------------------------
+DOB           SALARY DESIGNATION                                                
+--------- ---------- --------------------                                       
+       101                                                                      
+Greg                                                                            
+20-JUN-94      26000 Clerk                                                      
+                                                                                
+
+SQL> Spool off
